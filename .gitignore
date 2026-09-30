@@ -1,0 +1,14 @@
+# Secrets and local machine stuff - never uploaded
+server-config.psd1
+data/
+.cache/
+client/cache/
+client/client-config.json
+*.part
+*.download
+
+# Build output of the custom mod
+custom-mod/**/bin/
+custom-mod/**/obj/
+Claude outputs/
+sail-templates/

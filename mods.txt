@@ -1,0 +1,31 @@
+# Mods for the server AND every player. start-server.ps1 installs the newest version of each on every start,
+# and Play.bat gives your friends exactly the same versions.
+#
+# One mod per line:
+#   https://thunderstore.io/c/valheim/p/Author/ModName/            newest version
+#   https://thunderstore.io/c/valheim/p/Author/ModName/v/1.2.3/    stay on this version
+#   Author-ModName  or  Author-ModName-1.2.3                       short form
+# Optional after the link:  server-only  or  client-only   (default: server + players)
+# Dependencies (Jotunn etc.) are added automatically. Lines starting with # are ignored.
+# Nexus links can't be downloaded automatically - use the same mod's Thunderstore page.
+
+# SeneaL UI  (your Nexus link https://www.nexusmods.com/valheim/mods/3875 - same mod, same version, on Thunderstore)
+https://thunderstore.io/c/valheim/p/seneaL/SeneaL_UI/
+# Plant Everything  (your Nexus link https://www.nexusmods.com/valheim/mods/1042 - same mod on Thunderstore)
+https://thunderstore.io/c/valheim/p/Advize/PlantEverything/
+https://thunderstore.io/c/valheim/p/JereKuusela/Infinity_Hammer/
+https://thunderstore.io/c/valheim/p/OdinPlus/OdinsFoodBarrels/
+https://thunderstore.io/c/valheim/p/JereKuusela/Server_devcommands/
+https://thunderstore.io/c/valheim/p/OdinPlus/OdinArchitect/
+# Better Networking: CW_Jesse's original was last updated in 2023 for an old game version and is outdated for Valheim 1.0.
+# Using the maintained Valheim 1.0 fork instead. To go back, swap the # between these two lines.
+# https://thunderstore.io/c/valheim/p/CW_Jesse/BetterNetworking_Valheim/
+https://thunderstore.io/c/valheim/p/SimplifyDave/BetterNetworking_Valheim/
+# Riverheim changes world generation: the world must be CREATED with it and it must stay installed.
+https://thunderstore.io/c/valheim/p/Gurebu/Riverheim/
+
+# --- Server features -------------------------------------------------------------------------------
+# Shared map exploration + shared map pins (settings: game-files/common/BepInEx/config/eu.mydayyy.plugins.serversidemap.cfg)
+https://thunderstore.io/c/valheim/p/Mydayyy/ServerSideMap/
+# Our own mod (textures, 3x explore radius, always-visible players) is not listed here:
+# it lives in game-files/common/BepInEx/plugins/ValheimServerTweaks (source in custom-mod/).

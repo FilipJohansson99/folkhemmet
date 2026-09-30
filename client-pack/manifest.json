@@ -1,0 +1,180 @@
+{
+    "schema":  1,
+    "serverName":  "Folkhemmet",
+    "bepinex":  {
+                    "fullName":  "denikson-BepInExPack_Valheim",
+                    "version":  "5.4.2351",
+                    "url":  "https://thunderstore.io/package/download/denikson/BepInExPack_Valheim/5.4.2351/"
+                },
+    "mods":  [
+                 {
+                     "fullName":  "Advize-PlantEverything",
+                     "version":  "1.21.3",
+                     "url":  "https://thunderstore.io/package/download/Advize/PlantEverything/1.21.3/"
+                 },
+                 {
+                     "fullName":  "Gurebu-Riverheim",
+                     "version":  "1.2.1",
+                     "url":  "https://thunderstore.io/package/download/Gurebu/Riverheim/1.2.1/"
+                 },
+                 {
+                     "fullName":  "JereKuusela-Infinity_Hammer",
+                     "version":  "1.86.0",
+                     "url":  "https://thunderstore.io/package/download/JereKuusela/Infinity_Hammer/1.86.0/"
+                 },
+                 {
+                     "fullName":  "JereKuusela-Server_devcommands",
+                     "version":  "1.115.0",
+                     "url":  "https://thunderstore.io/package/download/JereKuusela/Server_devcommands/1.115.0/"
+                 },
+                 {
+                     "fullName":  "JereKuusela-World_Edit_Commands",
+                     "version":  "1.79.0",
+                     "url":  "https://thunderstore.io/package/download/JereKuusela/World_Edit_Commands/1.79.0/"
+                 },
+                 {
+                     "fullName":  "Mydayyy-ServerSideMap",
+                     "version":  "1.3.14",
+                     "url":  "https://thunderstore.io/package/download/Mydayyy/ServerSideMap/1.3.14/"
+                 },
+                 {
+                     "fullName":  "OdinPlus-OdinArchitect",
+                     "version":  "1.7.7",
+                     "url":  "https://thunderstore.io/package/download/OdinPlus/OdinArchitect/1.7.7/"
+                 },
+                 {
+                     "fullName":  "OdinPlus-OdinsFoodBarrels",
+                     "version":  "1.3.8",
+                     "url":  "https://thunderstore.io/package/download/OdinPlus/OdinsFoodBarrels/1.3.8/"
+                 },
+                 {
+                     "fullName":  "seneaL-SeneaL_UI",
+                     "version":  "1.1.6",
+                     "url":  "https://thunderstore.io/package/download/seneaL/SeneaL_UI/1.1.6/"
+                 },
+                 {
+                     "fullName":  "SimplifyDave-BetterNetworking_Valheim",
+                     "version":  "1.2.0",
+                     "url":  "https://thunderstore.io/package/download/SimplifyDave/BetterNetworking_Valheim/1.2.0/"
+                 },
+                 {
+                     "fullName":  "ValheimModding-Jotunn",
+                     "version":  "2.30.2",
+                     "url":  "https://thunderstore.io/package/download/ValheimModding/Jotunn/2.30.2/"
+                 }
+             ],
+    "files":  [
+                  {
+                      "target":  "BepInEx/config/advize.PlantEverything.cfg",
+                      "source":  "game-files/common/BepInEx/config/advize.PlantEverything.cfg",
+                      "sha256":  "18492D7CF1ABEB86B26433CE69BFEC539C3A97A263BE207958FCD23955ECB2E4"
+                  },
+                  {
+                      "target":  "BepInEx/config/dev.gurebu.riverheim.stable.cfg",
+                      "source":  "game-files/common/BepInEx/config/dev.gurebu.riverheim.stable.cfg",
+                      "sha256":  "5FAC2B4D12DD4FAFE328ED08F897724AD1125C525C44724D6100214DE28E0B07"
+                  },
+                  {
+                      "target":  "BepInEx/config/DIT.BetterNetworking10.cfg",
+                      "source":  "game-files/common/BepInEx/config/DIT.BetterNetworking10.cfg",
+                      "sha256":  "71152567BAF3A5EA272FD913BE0E6FA4EEACEA9634BB68B5ADFC7E1BFDF614F1"
+                  },
+                  {
+                      "target":  "BepInEx/config/eu.mydayyy.plugins.serversidemap.cfg",
+                      "source":  "game-files/common/BepInEx/config/eu.mydayyy.plugins.serversidemap.cfg",
+                      "sha256":  "0955EC094A85F4E3BFC10824F6D09AEC2D87A718EBD96D9F292AFC802B4867D7"
+                  },
+                  {
+                      "target":  "BepInEx/config/filip.valheim.servertweaks.cfg",
+                      "source":  "game-files/common/BepInEx/config/filip.valheim.servertweaks.cfg",
+                      "sha256":  "0651A4849BDF8DA22F08F7B50F8C6D0B80477D65B350ECDFD023F6BADA3D7368"
+                  },
+                  {
+                      "target":  "BepInEx/config/gravebear.odinsfoodbarrels.cfg",
+                      "source":  "game-files/common/BepInEx/config/gravebear.odinsfoodbarrels.cfg",
+                      "sha256":  "39B662D4F12F4153A48A23E18FD7FABD9113A8FE058C415A6A4CD2FA59922B51"
+                  },
+                  {
+                      "target":  "BepInEx/config/infinity_hammer.cfg",
+                      "source":  "game-files/common/BepInEx/config/infinity_hammer.cfg",
+                      "sha256":  "298870B4C638083D11A4C6BC33469115E6882F9A862B1A9935A5FB9C913633EE"
+                  },
+                  {
+                      "target":  "BepInEx/config/Raelaziel.OdinArchitect.cfg",
+                      "source":  "game-files/common/BepInEx/config/Raelaziel.OdinArchitect.cfg",
+                      "sha256":  "03F524AD9614909C57F74CB31ABEEE1AAE497DC0AA063402E5916938D7D511B9"
+                  },
+                  {
+                      "target":  "BepInEx/config/seneaL.valheim.ui.cfg",
+                      "source":  "game-files/common/BepInEx/config/seneaL.valheim.ui.cfg",
+                      "sha256":  "15B6ED392B0F1AC3BF047571AE153D6290293D092AF563D70F8A4E23FFBF121E"
+                  },
+                  {
+                      "target":  "BepInEx/config/server_devcommands.cfg",
+                      "source":  "game-files/common/BepInEx/config/server_devcommands.cfg",
+                      "sha256":  "C213AEAB97E61938E1FC877260C28B899F097C7D5FB46625127BEA8D126071A0"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/Karve/sail_white.png",
+                      "source":  "textures/Karve/sail_white.png",
+                      "sha256":  "3A8207AB0B114E8BA4343BB742F5876DDD16DD14E1BA84B311DFFD80424ECF0A"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/Raft/sail_brown.png",
+                      "source":  "textures/Raft/sail_brown.png",
+                      "sha256":  "C43AFD416D94B4DEDFF26D33D570393A4B2C6F89AEA2BC7F4BD24B62FB27D713"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/Trailership/sail_frozen.png",
+                      "source":  "textures/Trailership/sail_frozen.png",
+                      "sha256":  "F99617537520F5A0DACFAE11927D6A71C7DFB62E5CFCA9AD93C5D9A3D291104D"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/Troll/troll.png",
+                      "source":  "textures/Troll/troll.png",
+                      "sha256":  "6DD081EE245442011C4C504A05C8FBF09CBD78074F2F330576164457CEDCF67B"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/VikingShip/sail.png",
+                      "source":  "textures/VikingShip/sail.png",
+                      "sha256":  "68DAB04741ACFB9EB8ED4A95A9DA6B324061E1143468E2FF8149F9D0E6977014"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/VikingShip_Ashlands/ashlandshipsail_mat.png",
+                      "source":  "textures/VikingShip_Ashlands/ashlandshipsail_mat.png",
+                      "sha256":  "7DC2AB03B512633A3BEFEEAD0AB3FA5F17D5C756A798179370BA7651C135B95F"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/ValheimServerTweaks.dll",
+                      "source":  "game-files/common/BepInEx/plugins/ValheimServerTweaks/ValheimServerTweaks.dll",
+                      "sha256":  "67ADCDE9B7D36ECDCE7FAC9F4D272B52553F7CAA5931511C17A4C0F1EE24EEF7"
+                  }
+              ],
+    "clientScripts":  [
+                          {
+                              "name":  "Play.bat",
+                              "source":  "client/Play.bat",
+                              "sha256":  "C71CC422E6E7572CA38B6BA82A8A3E461D2962894CB5E4D0146F2CA0CDAEFC5B"
+                          },
+                          {
+                              "name":  "Remove Mods.bat",
+                              "source":  "client/Remove Mods.bat",
+                              "sha256":  "A3612A76F1D16EF84122C18175A7E665954368D698F80318044F8511C489573D"
+                          },
+                          {
+                              "name":  "Update-Mods.ps1",
+                              "source":  "client/Update-Mods.ps1",
+                              "sha256":  "3C7D56FCD76F7E6DE015C466FC72E76EC9EABE04C13A50CDA7DE88BEEC539EF8"
+                          },
+                          {
+                              "name":  "ModSync.ps1",
+                              "source":  "lib/ModSync.ps1",
+                              "sha256":  "5153986EC65EB2A63703F76F723EF0601C3D1F69902D9E1C616B5F25A24ECF22"
+                          },
+                          {
+                              "name":  "Folkhemmet.ico",
+                              "source":  "client/Folkhemmet.ico",
+                              "sha256":  "C6FE6DDA19F49593E8772C4E78E87A6D8EDFF3F65DA13C30317E88808E8B5544"
+                          }
+                      ]
+}
