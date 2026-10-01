@@ -10,12 +10,17 @@ namespace ValheimServerTweaks
     internal static class ConfigSync
     {
         private const string RpcName = "ValheimServerTweaks_Config";
-        private const int PackageVersion = 2;
+        private const int PackageVersion = 3;
 
         internal static float ExploreRadiusMultiplier { get; private set; } = 1f;
         internal static bool AlwaysShowPlayersOnMap { get; private set; }
         internal static bool ProtectBuildingsFromEnemies { get; private set; }
         internal static bool ProtectShipsAndCarts { get; private set; }
+        internal static float StackSizeMultiplier { get; private set; } = 1f;
+        internal static float StoneDropMultiplier { get; private set; } = 1f;
+        internal static float WoodDropMultiplier { get; private set; } = 1f;
+        internal static string StoneItems { get; private set; } = "";
+        internal static string WoodItems { get; private set; } = "";
         internal static bool ReceivedFromServer { get; private set; }
 
         internal static void Init() => ResetToLocal();
@@ -26,7 +31,13 @@ namespace ValheimServerTweaks
             AlwaysShowPlayersOnMap = Plugin.AlwaysShowPlayersOnMap.Value;
             ProtectBuildingsFromEnemies = Plugin.ProtectBuildingsFromEnemies.Value;
             ProtectShipsAndCarts = Plugin.ProtectShipsAndCarts.Value;
+            StackSizeMultiplier = Plugin.StackSizeMultiplier.Value;
+            StoneDropMultiplier = Plugin.StoneDropMultiplier.Value;
+            WoodDropMultiplier = Plugin.WoodDropMultiplier.Value;
+            StoneItems = Plugin.StoneItems.Value ?? "";
+            WoodItems = Plugin.WoodItems.Value ?? "";
             ReceivedFromServer = false;
+            ItemTweaks.ApplyStackSizes();
         }
 
         internal static void OnLocalConfigChanged()
@@ -54,6 +65,11 @@ namespace ValheimServerTweaks
             pkg.Write(AlwaysShowPlayersOnMap);
             pkg.Write(ProtectBuildingsFromEnemies);
             pkg.Write(ProtectShipsAndCarts);
+            pkg.Write(StackSizeMultiplier);
+            pkg.Write(StoneDropMultiplier);
+            pkg.Write(WoodDropMultiplier);
+            pkg.Write(StoneItems);
+            pkg.Write(WoodItems);
             return pkg;
         }
 
@@ -82,10 +98,27 @@ namespace ValheimServerTweaks
                     ProtectBuildingsFromEnemies = pkg.ReadBool();
                     ProtectShipsAndCarts = pkg.ReadBool();
                 }
+                if (version >= 3)
+                {
+                    StackSizeMultiplier = pkg.ReadSingle();
+                    StoneDropMultiplier = pkg.ReadSingle();
+                    WoodDropMultiplier = pkg.ReadSingle();
+                    StoneItems = pkg.ReadString();
+                    WoodItems = pkg.ReadString();
+                }
+                else
+                {
+                    // Older server build: it doesn't know these features, so play vanilla for them.
+                    StackSizeMultiplier = 1f;
+                    StoneDropMultiplier = 1f;
+                    WoodDropMultiplier = 1f;
+                }
                 ReceivedFromServer = true;
                 Plugin.Log.LogInfo($"Server settings received: explore radius x{ExploreRadiusMultiplier}, always show players = {AlwaysShowPlayersOnMap}, " +
-                                   $"buildings protected = {ProtectBuildingsFromEnemies}, ships/carts protected = {ProtectShipsAndCarts}.");
+                                   $"buildings protected = {ProtectBuildingsFromEnemies}, ships/carts protected = {ProtectShipsAndCarts}, " +
+                                   $"stacks x{StackSizeMultiplier}, stone drops x{StoneDropMultiplier}, wood drops x{WoodDropMultiplier}.");
                 MapTweaks.ApplyLocalPublicPosition();
+                ItemTweaks.ApplyStackSizes();
             }
             catch (Exception e)
             {

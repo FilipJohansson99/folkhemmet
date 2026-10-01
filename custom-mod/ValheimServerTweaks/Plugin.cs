@@ -19,6 +19,7 @@ namespace ValheimServerTweaks
     ///  - Map exploration radius multiplier (server controlled).
     ///  - Every player is always visible on the map (server enforced).
     ///  - Buildings can't be damaged by monsters.
+    ///  - Bigger item stacks, more stone and wood from gathering.
     /// Hunger speed is NOT done here: it uses the vanilla "foodrate" world modifier set by start-server.ps1.
     /// </summary>
     [BepInPlugin(Guid, ModName, Version)]
@@ -26,7 +27,7 @@ namespace ValheimServerTweaks
     {
         public const string Guid = "filip.valheim.servertweaks";
         public const string ModName = "ValheimServerTweaks";
-        public const string Version = "1.1.0";
+        public const string Version = "1.2.0";
 
         internal static ManualLogSource Log;
         internal static Plugin Instance;
@@ -37,6 +38,11 @@ namespace ValheimServerTweaks
         internal static ConfigEntry<bool> AlwaysShowPlayersOnMap;
         internal static ConfigEntry<bool> ProtectBuildingsFromEnemies;
         internal static ConfigEntry<bool> ProtectShipsAndCarts;
+        internal static ConfigEntry<float> StackSizeMultiplier;
+        internal static ConfigEntry<float> StoneDropMultiplier;
+        internal static ConfigEntry<float> WoodDropMultiplier;
+        internal static ConfigEntry<string> StoneItems;
+        internal static ConfigEntry<string> WoodItems;
 
         // Client only
         internal static ConfigEntry<bool> TexturesEnabled;
@@ -69,6 +75,24 @@ namespace ValheimServerTweaks
             ProtectShipsAndCarts = Config.Bind("Buildings", "AlsoProtectShipsAndCarts", false,
                 "Also make ships and carts immune to monsters (e.g. serpents). Server controlled.");
 
+            StackSizeMultiplier = Config.Bind("Items", "StackSizeMultiplier", 2f,
+                new ConfigDescription("Max stack size of every stackable item is multiplied by this (2 = wood stacks to 100 instead of 50). " +
+                    "Server controlled.", new AcceptableValueRange<float>(0.1f, 100f)));
+
+            StoneDropMultiplier = Config.Bind("Drops", "StoneMultiplier", 3f,
+                new ConfigDescription("Stone from rocks, ore deposits and the ground is multiplied by this. Server controlled.",
+                    new AcceptableValueRange<float>(0f, 100f)));
+
+            StoneItems = Config.Bind("Drops", "StoneItems", "Stone,Grausten,BlackMarble",
+                "Item names (prefab names) that count as stone, comma separated. Server controlled.");
+
+            WoodDropMultiplier = Config.Bind("Drops", "WoodMultiplier", 2f,
+                new ConfigDescription("Wood from trees, logs, stumps and branches is multiplied by this. Server controlled.",
+                    new AcceptableValueRange<float>(0f, 100f)));
+
+            WoodItems = Config.Bind("Drops", "WoodItems", "Wood,FineWood,RoundLog,ElderBark,YggdrasilWood,Blackwood",
+                "Item names (prefab names) that count as wood, comma separated (RoundLog = core wood). Server controlled.");
+
             TexturesEnabled = Config.Bind("Textures", "Enabled", true,
                 "Client only. Load replacement textures from the texture folder.");
 
@@ -84,6 +108,11 @@ namespace ValheimServerTweaks
             AlwaysShowPlayersOnMap.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
             ProtectBuildingsFromEnemies.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
             ProtectShipsAndCarts.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
+            StackSizeMultiplier.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
+            StoneDropMultiplier.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
+            WoodDropMultiplier.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
+            StoneItems.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
+            WoodItems.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
 
             new Harmony(Guid).PatchAll(Assembly.GetExecutingAssembly());
 

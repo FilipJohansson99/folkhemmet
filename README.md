@@ -76,6 +76,8 @@ world saves (`data\`) are in `.gitignore` and never uploaded.
 | Map reveal 3x | Custom mod, `ExploreRadiusMultiplier = 3` (radius 100 m -> 300 m), pushed from the server to players |
 | Hunger at 33% speed | Vanilla world modifier `foodrate 33` (`FoodRatePercent` in `server-config.psd1`) - food lasts 3x longer |
 | Buildings indestructible from enemies | Custom mod, `[Buildings] ProtectFromEnemies` - monsters do no damage to built pieces (ships/carts optional) |
+| Bigger stacks | Custom mod, `[Items] StackSizeMultiplier = 2` - every stackable item stacks twice as high |
+| More stone and wood | Custom mod, `[Drops] StoneMultiplier = 3`, `WoodMultiplier = 2` (rocks, ore deposits, trees, logs, stumps, ground pickups - not deconstructing) |
 | Custom textures (trolls, sails, ...) | Custom mod, PNGs in `textures\` (troll + the sails of every ship) |
 | Port forwarding check | `lib\NetworkCheck.ps1`: firewall, UPnP forwarding, CGNAT, internet reachability |
 
