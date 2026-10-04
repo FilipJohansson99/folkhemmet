@@ -12,6 +12,9 @@
     # Crossplay (Xbox/Game Pass players). Leave $false: the shared map mod (ServerSideMap) does not work with crossplay.
     Crossplay  = $false
 
+    # CPU scheduling preference; does not reserve cores or RAM. Normal disables the boost.
+    ProcessPriority = 'AboveNormal'   # Normal or AboveNormal
+
     # --- Network checks (every start) -----------------------------------------------
     CheckPorts      = $true           # before start: Windows Firewall + router ports; after start: reachable from the internet?
     AutoPortForward = $true           # open UDP 2456-2457 on the router automatically (UPnP) when the router allows it

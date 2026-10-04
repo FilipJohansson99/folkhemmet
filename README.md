@@ -101,6 +101,10 @@ Name, password, world, port, public listing, save folder, world modifiers (`Food
 `SetKeys` - applied fresh on every start), admins, backups, and `UpdateModsOnStart` / `PublishToGit`.
 Admins (`Admins = @('7656...')`) are written to `data\adminlist.txt`; you need admin for devcommands/Infinity Hammer.
 
+`ProcessPriority` defaults to `AboveNormal`: each launch gives the server a modest CPU scheduling preference.
+Set it to `Normal` in `server-config.psd1` to disable this. All CPU cores remain available and RAM grows as needed;
+this setting does not reserve memory or guarantee a desync fix.
+
 ### Mod configs (`game-files\`) - synced to everyone
 
 Every mod writes its `.cfg` on the server the first time it runs; `start-server.ps1` then copies each new one into
@@ -142,6 +146,14 @@ it (e.g. the troll ragdoll - which is usually what you want).
 
 ## Troubleshooting
 
+- **Desync trial (2026-10-04):** Better Networking is configured in `VanillaSafe` mode for the next normal
+  `Start Server.bat` launch. This retains compression but uses vanilla networking scheduling, queue budgets,
+  and Steam send rates. Version 1.2.0 warns that this server's Valheim 1.0.16 is outside its audited range.
+  This is a diagnostic baseline, not a confirmed boat-physics fix. The October 4 logs around 13:00 show five
+  connected players and a save at 12:59:24, without a timeout or exception in the reviewed 12:42-13:21 window.
+  After the host restarts and publishes the refreshed pack, players must fully exit and launch through the
+  Folkhemmet shortcut to update. Compare with five players under similar conditions. If lag worsens, restore
+  `Mode = Balanced` in `game-files/common/BepInEx/config/DIT.BetterNetworking10.cfg` and repeat the restart/update.
 - **Logs:** server `...\Valheim dedicated server\BepInEx\LogOutput.log`, players `...\Valheim\BepInEx\LogOutput.log`.
 - **Friends can't find/join:** check the port forward (UDP 2456-2457), that they started with Play.bat, and that
   Steam has updated both Valheim and the dedicated server.

@@ -135,6 +135,9 @@ function Initialize-Config {
     # Fill in settings added to the example later (keeps old configs working).
     $defaults = Import-DataFile $ExampleConfig
     foreach ($k in $defaults.Keys) { if (-not $cfg.ContainsKey($k)) { $cfg[$k] = $defaults[$k] } }
+    if ($cfg.ProcessPriority -notin @('Normal', 'AboveNormal')) {
+        throw 'ProcessPriority must be Normal or AboveNormal.'
+    }
 
     $asked = $false
     if (-not $cfg.ServerName -or $cfg.ServerName -eq 'CHANGE ME') {
@@ -595,11 +598,38 @@ $watcher = $null
 if ($net -and $net.PublicIp -and -not $cfg.Crossplay) {
     $watcher = Start-ReachabilityWatcher -LogPath $logPath -PublicIp $net.PublicIp -Port ([int]$cfg.Port) -Public ([bool]$cfg.Public)
 }
+# Keep the direct console launch and Ctrl+C save behavior. Set priority only on
+# the matching child of this launcher, without touching other server instances.
+$priorityWorker = [PowerShell]::Create()
+$null = $priorityWorker.AddScript({
+    param($launcherId, $exePath, $priority)
+    try {
+        for ($attempt = 0; $attempt -lt 120; $attempt++) {
+            $children = Get-CimInstance Win32_Process -Filter "ParentProcessId = $launcherId" -ErrorAction Stop
+            foreach ($child in $children) {
+                if ($child.ExecutablePath -eq $exePath) {
+                    $serverProcess = Get-Process -Id $child.ProcessId -ErrorAction Stop
+                    $serverProcess.PriorityClass = [System.Diagnostics.ProcessPriorityClass]::$priority
+                    $serverProcess.Refresh()
+                    [Console]::WriteLine("[Folkhemmet] Server CPU priority: $($serverProcess.PriorityClass)")
+                    return
+                }
+            }
+            Start-Sleep -Milliseconds 500
+        }
+        [Console]::WriteLine('[Folkhemmet] CPU priority could not be applied: server was not found within 60 seconds.')
+    } catch {
+        [Console]::WriteLine("[Folkhemmet] CPU priority could not be applied: $($_.Exception.Message)")
+    }
+}).AddArgument($PID).AddArgument($ServerExe).AddArgument([string]$cfg.ProcessPriority)
+$null = $priorityWorker.BeginInvoke()
 $env:SteamAppId = '892970'
 Push-Location -LiteralPath $ServerDir
 try {
     & $ServerExe @serverArgs
 } finally {
+    try { $priorityWorker.Stop() } catch { }
+    $priorityWorker.Dispose()
     Pop-Location
     Stop-ReachabilityWatcher $watcher
     # Mods create their configs on the first run - pick them up now (published on the next start).

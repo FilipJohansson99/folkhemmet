@@ -19,8 +19,8 @@
                  },
                  {
                      "fullName":  "JereKuusela-Infinity_Hammer",
-                     "version":  "1.86.0",
-                     "url":  "https://thunderstore.io/package/download/JereKuusela/Infinity_Hammer/1.86.0/"
+                     "version":  "1.87.0",
+                     "url":  "https://thunderstore.io/package/download/JereKuusela/Infinity_Hammer/1.87.0/"
                  },
                  {
                      "fullName":  "JereKuusela-Server_devcommands",
@@ -29,8 +29,8 @@
                  },
                  {
                      "fullName":  "JereKuusela-World_Edit_Commands",
-                     "version":  "1.79.0",
-                     "url":  "https://thunderstore.io/package/download/JereKuusela/World_Edit_Commands/1.79.0/"
+                     "version":  "1.80.0",
+                     "url":  "https://thunderstore.io/package/download/JereKuusela/World_Edit_Commands/1.80.0/"
                  },
                  {
                      "fullName":  "Mydayyy-ServerSideMap",
@@ -39,13 +39,13 @@
                  },
                  {
                      "fullName":  "OdinPlus-OdinArchitect",
-                     "version":  "1.7.9",
-                     "url":  "https://thunderstore.io/package/download/OdinPlus/OdinArchitect/1.7.9/"
+                     "version":  "1.8.0",
+                     "url":  "https://thunderstore.io/package/download/OdinPlus/OdinArchitect/1.8.0/"
                  },
                  {
                      "fullName":  "OdinPlus-OdinsFoodBarrels",
-                     "version":  "1.3.9",
-                     "url":  "https://thunderstore.io/package/download/OdinPlus/OdinsFoodBarrels/1.3.9/"
+                     "version":  "1.4.0",
+                     "url":  "https://thunderstore.io/package/download/OdinPlus/OdinsFoodBarrels/1.4.0/"
                  },
                  {
                      "fullName":  "seneaL-SeneaL_UI",
@@ -77,7 +77,7 @@
                   {
                       "target":  "BepInEx/config/DIT.BetterNetworking10.cfg",
                       "source":  "game-files/common/BepInEx/config/DIT.BetterNetworking10.cfg",
-                      "sha256":  "71152567BAF3A5EA272FD913BE0E6FA4EEACEA9634BB68B5ADFC7E1BFDF614F1"
+                      "sha256":  "8CB8CCFEAC1028FA9B79DB1CA7CE11C1C3BD818C36D9411AC56C9E670A68A9A0"
                   },
                   {
                       "target":  "BepInEx/config/eu.mydayyy.plugins.serversidemap.cfg",
