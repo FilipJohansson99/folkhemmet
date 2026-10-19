@@ -9,8 +9,8 @@
     "mods":  [
                  {
                      "fullName":  "Advize-PlantEverything",
-                     "version":  "1.21.3",
-                     "url":  "https://thunderstore.io/package/download/Advize/PlantEverything/1.21.3/"
+                     "version":  "1.21.4",
+                     "url":  "https://thunderstore.io/package/download/Advize/PlantEverything/1.21.4/"
                  },
                  {
                      "fullName":  "Gurebu-Riverheim",
@@ -39,8 +39,8 @@
                  },
                  {
                      "fullName":  "OdinPlus-OdinArchitect",
-                     "version":  "1.8.5",
-                     "url":  "https://thunderstore.io/package/download/OdinPlus/OdinArchitect/1.8.5/"
+                     "version":  "1.8.8",
+                     "url":  "https://thunderstore.io/package/download/OdinPlus/OdinArchitect/1.8.8/"
                  },
                  {
                      "fullName":  "OdinPlus-OdinsFoodBarrels",
@@ -48,9 +48,14 @@
                      "url":  "https://thunderstore.io/package/download/OdinPlus/OdinsFoodBarrels/1.4.0/"
                  },
                  {
+                     "fullName":  "seneaL-SeneaL_API",
+                     "version":  "1.0.1",
+                     "url":  "https://thunderstore.io/package/download/seneaL/SeneaL_API/1.0.1/"
+                 },
+                 {
                      "fullName":  "seneaL-SeneaL_UI",
-                     "version":  "1.1.9",
-                     "url":  "https://thunderstore.io/package/download/seneaL/SeneaL_UI/1.1.9/"
+                     "version":  "1.2.2",
+                     "url":  "https://thunderstore.io/package/download/seneaL/SeneaL_UI/1.2.2/"
                  },
                  {
                      "fullName":  "SimplifyDave-BetterNetworking_Valheim",
