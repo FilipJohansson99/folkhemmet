@@ -23,11 +23,12 @@ namespace ValheimServerTweaks
     /// Hunger speed is NOT done here: it uses the vanilla "foodrate" world modifier set by start-server.ps1.
     /// </summary>
     [BepInPlugin(Guid, ModName, Version)]
+    [BepInDependency("eu.mydayyy.plugins.serversidemap")]
     public class Plugin : BaseUnityPlugin
     {
         public const string Guid = "filip.valheim.servertweaks";
         public const string ModName = "ValheimServerTweaks";
-        public const string Version = "1.2.0";
+        public const string Version = "1.3.0";
 
         internal static ManualLogSource Log;
         internal static Plugin Instance;
@@ -43,6 +44,11 @@ namespace ValheimServerTweaks
         internal static ConfigEntry<float> WoodDropMultiplier;
         internal static ConfigEntry<string> StoneItems;
         internal static ConfigEntry<string> WoodItems;
+        internal static ConfigEntry<bool> InfiniteLightFuel;
+        internal static ConfigEntry<bool> AutoRepair;
+        internal static ConfigEntry<float> WorkbenchAreaMultiplier;
+        internal static ConfigEntry<int> BronzeNailsMultiplier;
+        internal static ConfigEntry<bool> SharedPersistentPins;
 
         // Client only
         internal static ConfigEntry<bool> TexturesEnabled;
@@ -93,6 +99,19 @@ namespace ValheimServerTweaks
             WoodItems = Config.Bind("Drops", "WoodItems", "Wood,FineWood,RoundLog,ElderBark,YggdrasilWood,Blackwood",
                 "Item names (prefab names) that count as wood, comma separated (RoundLog = core wood). Server controlled.");
 
+            InfiniteLightFuel = Config.Bind("Buildings", "InfiniteLightFuel", true,
+                "Torches, braziers, campfires and hearths burn without fuel. Does not change smelters or kilns. Server controlled.");
+            AutoRepair = Config.Bind("Crafting", "AutoRepair", true,
+                "Repair all eligible carried equipment when opening a usable crafting station. Normal station/type/level requirements apply. Server controlled.");
+            WorkbenchAreaMultiplier = Config.Bind("Crafting", "WorkbenchAreaMultiplier", 2f,
+                new ConfigDescription("Covered building area multiplier for workbenches (2 = radius x sqrt(2), about 28.3 m from 20 m). Server controlled.",
+                    new AcceptableValueRange<float>(1f, 100f)));
+            BronzeNailsMultiplier = Config.Bind("Crafting", "BronzeNailsMultiplier", 2,
+                new ConfigDescription("Bronze nail crafting output multiplier; ingredient costs are unchanged. Server controlled.",
+                    new AcceptableValueRange<int>(1, 10)));
+            SharedPersistentPins = Config.Bind("Map", "SharedPersistentPins", true,
+                "Share saved map pins from the custom UI, including existing local pins, and keep an atomic server pin save with a backup. Personal death/bed markers stay private. Server controlled.");
+
             TexturesEnabled = Config.Bind("Textures", "Enabled", true,
                 "Client only. Load replacement textures from the texture folder.");
 
@@ -113,10 +132,17 @@ namespace ValheimServerTweaks
             WoodDropMultiplier.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
             StoneItems.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
             WoodItems.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
+            InfiniteLightFuel.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
+            AutoRepair.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
+            WorkbenchAreaMultiplier.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
+            BronzeNailsMultiplier.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
+            SharedPersistentPins.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
 
             new Harmony(Guid).PatchAll(Assembly.GetExecutingAssembly());
 
             Log.LogInfo($"{ModName} {Version} loaded ({(IsHeadless ? "dedicated server" : "client")}).");
         }
+
+        private void Update() => SharedPins.Tick();
     }
 }

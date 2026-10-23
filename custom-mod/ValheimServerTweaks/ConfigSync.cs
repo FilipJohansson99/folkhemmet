@@ -10,7 +10,7 @@ namespace ValheimServerTweaks
     internal static class ConfigSync
     {
         private const string RpcName = "ValheimServerTweaks_Config";
-        private const int PackageVersion = 3;
+        private const int PackageVersion = 4;
 
         internal static float ExploreRadiusMultiplier { get; private set; } = 1f;
         internal static bool AlwaysShowPlayersOnMap { get; private set; }
@@ -22,6 +22,11 @@ namespace ValheimServerTweaks
         internal static string StoneItems { get; private set; } = "";
         internal static string WoodItems { get; private set; } = "";
         internal static bool ReceivedFromServer { get; private set; }
+        internal static bool InfiniteLightFuel { get; private set; }
+        internal static bool AutoRepair { get; private set; }
+        internal static float WorkbenchAreaMultiplier { get; private set; } = 1f;
+        internal static int BronzeNailsMultiplier { get; private set; } = 1;
+        internal static bool SharedPersistentPins { get; private set; }
 
         internal static void Init() => ResetToLocal();
 
@@ -37,7 +42,13 @@ namespace ValheimServerTweaks
             StoneItems = Plugin.StoneItems.Value ?? "";
             WoodItems = Plugin.WoodItems.Value ?? "";
             ReceivedFromServer = false;
+            InfiniteLightFuel = Plugin.InfiniteLightFuel.Value;
+            AutoRepair = Plugin.AutoRepair.Value;
+            WorkbenchAreaMultiplier = Plugin.WorkbenchAreaMultiplier.Value;
+            BronzeNailsMultiplier = Plugin.BronzeNailsMultiplier.Value;
+            SharedPersistentPins = Plugin.SharedPersistentPins.Value;
             ItemTweaks.ApplyStackSizes();
+            CraftingTweaks.ApplyRecipes();
         }
 
         internal static void OnLocalConfigChanged()
@@ -70,6 +81,11 @@ namespace ValheimServerTweaks
             pkg.Write(WoodDropMultiplier);
             pkg.Write(StoneItems);
             pkg.Write(WoodItems);
+            pkg.Write(InfiniteLightFuel);
+            pkg.Write(AutoRepair);
+            pkg.Write(WorkbenchAreaMultiplier);
+            pkg.Write(BronzeNailsMultiplier);
+            pkg.Write(SharedPersistentPins);
             return pkg;
         }
 
@@ -113,12 +129,18 @@ namespace ValheimServerTweaks
                     StoneDropMultiplier = 1f;
                     WoodDropMultiplier = 1f;
                 }
+                InfiniteLightFuel = version >= 4 && pkg.ReadBool();
+                AutoRepair = version >= 4 && pkg.ReadBool();
+                WorkbenchAreaMultiplier = version >= 4 ? pkg.ReadSingle() : 1f;
+                BronzeNailsMultiplier = version >= 4 ? pkg.ReadInt() : 1;
+                SharedPersistentPins = version >= 4 && pkg.ReadBool();
                 ReceivedFromServer = true;
                 Plugin.Log.LogInfo($"Server settings received: explore radius x{ExploreRadiusMultiplier}, always show players = {AlwaysShowPlayersOnMap}, " +
                                    $"buildings protected = {ProtectBuildingsFromEnemies}, ships/carts protected = {ProtectShipsAndCarts}, " +
                                    $"stacks x{StackSizeMultiplier}, stone drops x{StoneDropMultiplier}, wood drops x{WoodDropMultiplier}.");
                 MapTweaks.ApplyLocalPublicPosition();
                 ItemTweaks.ApplyStackSizes();
+                CraftingTweaks.ApplyRecipes();
             }
             catch (Exception e)
             {

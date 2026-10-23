@@ -22,8 +22,15 @@ foreach ($d in @($ValheimDir, $ServerDir)) {
 }
 if (-not $bepCore) { throw 'BepInEx not found in Valheim or the dedicated server - run Play.bat or start-server.ps1 once first.' }
 
+$mapDll = $null
+foreach ($d in @($ValheimDir, $ServerDir)) {
+    $candidate = Join-Path $d 'BepInEx\plugins\Mydayyy-ServerSideMap\ServerSideMap.dll'
+    if (Test-Path -LiteralPath $candidate) { $mapDll = $candidate; break }
+}
+if (-not $mapDll) { throw 'ServerSideMap.dll not found - install the server/client mod pack first.' }
+
 $out = Join-Path $here 'bin'
-& dotnet build $proj -c Release "-p:ValheimDir=$ValheimDir" "-p:BepInExCoreDir=$bepCore" -o $out
+& dotnet build $proj -c Release "-p:ValheimDir=$ValheimDir" "-p:BepInExCoreDir=$bepCore" "-p:ServerSideMapDll=$mapDll" -o $out
 if ($LASTEXITCODE -ne 0) { throw 'Build failed - see the errors above.' }
 
 $dest = [IO.Path]::Combine($here, '..', 'game-files', 'common', 'BepInEx', 'plugins', 'ValheimServerTweaks')

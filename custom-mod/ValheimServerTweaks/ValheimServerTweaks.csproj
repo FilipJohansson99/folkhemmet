@@ -23,6 +23,7 @@
     <ManagedDir Condition="'$(ManagedDir)' == ''">$(ValheimDir)\valheim_Data\Managed</ManagedDir>
     <!-- BepInEx core dlls. Defaults to the game's BepInEx install (Play.bat installs it). -->
     <BepInExCoreDir Condition="'$(BepInExCoreDir)' == ''">$(ValheimDir)\BepInEx\core</BepInExCoreDir>
+    <ServerSideMapDll Condition="'$(ServerSideMapDll)' == ''">$(ValheimDir)\BepInEx\plugins\Mydayyy-ServerSideMap\ServerSideMap.dll</ServerSideMapDll>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,6 +34,7 @@
     <Reference Include="UnityEngine.ImageConversionModule"><HintPath>$(ManagedDir)\UnityEngine.ImageConversionModule.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="BepInEx"><HintPath>$(BepInExCoreDir)\BepInEx.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="0Harmony"><HintPath>$(BepInExCoreDir)\0Harmony.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="ServerSideMap"><HintPath>$(ServerSideMapDll)</HintPath><Private>false</Private></Reference>
   </ItemGroup>
 
 </Project>

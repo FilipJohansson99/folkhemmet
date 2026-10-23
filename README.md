@@ -119,6 +119,33 @@ A player who wants to keep their own version of a purely personal config (e.g. U
 
 ## Custom mod: ValheimServerTweaks
 
+**Gameplay additions (1.3.0, staged for the next restart):**
+- Torches (including held torches), braziers, campfires and hearths burn without consuming fuel.
+  Kilns and smelters keep their normal costs; normal water/cover and on/off behavior still applies.
+- Opening a usable crafting station repairs all eligible carried equipment. Station type, level, roof,
+  and fire requirements still apply.
+- Workbenches cover twice the building area: the standard 20 m radius becomes about 28.3 m (radius x sqrt(2)).
+  The range marker and effect area use the same expanded range. Other crafting stations keep their range.
+- Crafting bronze nails produces twice the normal amount with the same ingredients.
+- Saved map pins created or edited in SeneaL's custom UI are shared, including names, positions, base pin types,
+  check marks, and deletions. Existing local pins are imported automatically on joining, with exact duplicates
+  merged; nearby distinct pins are preserved. Personal death and bed markers stay private. Custom UI colors,
+  decorative icon variants, and compass preferences remain personal UI settings.
+
+These settings live in `game-files/common/BepInEx/config/filip.valheim.servertweaks.cfg` and are sent to clients
+by the server. ServerSideMap remains required for shared exploration and pin RPCs. Its original pin hooks
+only watch the vanilla UI, which is why pins made through the custom UI previously stayed local.
+The mod additionally saves pins within one second of changes to `data/worlds_local/Folkhemmet.mod.folkhemmet-pins`
+with atomic replacement and a `.bak` recovery copy. This file also matches the launcher's startup backup rules.
+ServerSideMap's existing `.explored` file is retained. Once created, the pin sidecar is authoritative for shared
+pins; restore it alongside the world if rolling back a world backup. Both the primary and `.bak` are checked
+on load, and corrupt files are preserved for recovery.
+
+To apply: restart normally through `Start Server.bat`, let it update/publish the player pack, then have everyone
+fully exit and launch through the Folkhemmet shortcut. Updated clients are required for these features.
+The build and isolated pin regression tests can be run with `custom-mod/build.ps1` and
+`dotnet run --project custom-mod/tests/PinTests.csproj` (tests require the .NET 10 SDK and do not start Valheim).
+
 Source in `custom-mod\`, built dll in `game-files\common\BepInEx\plugins\ValheimServerTweaks\`,
 settings in `game-files\common\BepInEx\config\filip.valheim.servertweaks.cfg`.
 

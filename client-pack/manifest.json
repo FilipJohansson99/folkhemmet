@@ -24,8 +24,8 @@
                  },
                  {
                      "fullName":  "JereKuusela-Server_devcommands",
-                     "version":  "1.115.0",
-                     "url":  "https://thunderstore.io/package/download/JereKuusela/Server_devcommands/1.115.0/"
+                     "version":  "1.116.0",
+                     "url":  "https://thunderstore.io/package/download/JereKuusela/Server_devcommands/1.116.0/"
                  },
                  {
                      "fullName":  "JereKuusela-World_Edit_Commands",
@@ -39,8 +39,8 @@
                  },
                  {
                      "fullName":  "OdinPlus-OdinArchitect",
-                     "version":  "1.8.8",
-                     "url":  "https://thunderstore.io/package/download/OdinPlus/OdinArchitect/1.8.8/"
+                     "version":  "1.9.3",
+                     "url":  "https://thunderstore.io/package/download/OdinPlus/OdinArchitect/1.9.3/"
                  },
                  {
                      "fullName":  "OdinPlus-OdinsFoodBarrels",
@@ -49,13 +49,13 @@
                  },
                  {
                      "fullName":  "seneaL-SeneaL_API",
-                     "version":  "1.0.1",
-                     "url":  "https://thunderstore.io/package/download/seneaL/SeneaL_API/1.0.1/"
+                     "version":  "1.2.0",
+                     "url":  "https://thunderstore.io/package/download/seneaL/SeneaL_API/1.2.0/"
                  },
                  {
                      "fullName":  "seneaL-SeneaL_UI",
-                     "version":  "1.2.2",
-                     "url":  "https://thunderstore.io/package/download/seneaL/SeneaL_UI/1.2.2/"
+                     "version":  "1.2.5",
+                     "url":  "https://thunderstore.io/package/download/seneaL/SeneaL_UI/1.2.5/"
                  },
                  {
                      "fullName":  "SimplifyDave-BetterNetworking_Valheim",
@@ -92,7 +92,7 @@
                   {
                       "target":  "BepInEx/config/filip.valheim.servertweaks.cfg",
                       "source":  "game-files/common/BepInEx/config/filip.valheim.servertweaks.cfg",
-                      "sha256":  "C203CD3C47E83E71897FBB6EE5D25E2AD52EA586330C32EE176DC525CA47A35B"
+                      "sha256":  "9EFA27E598C9D72253026CAB22331D5D39C2FCCC8BE9D0F2B8B5B6241F2E63E9"
                   },
                   {
                       "target":  "BepInEx/config/gravebear.odinsfoodbarrels.cfg",
@@ -108,6 +108,11 @@
                       "target":  "BepInEx/config/Raelaziel.OdinArchitect.cfg",
                       "source":  "game-files/common/BepInEx/config/Raelaziel.OdinArchitect.cfg",
                       "sha256":  "03F524AD9614909C57F74CB31ABEEE1AAE497DC0AA063402E5916938D7D511B9"
+                  },
+                  {
+                      "target":  "BepInEx/config/seneaL.valheim.api.cfg",
+                      "source":  "game-files/common/BepInEx/config/seneaL.valheim.api.cfg",
+                      "sha256":  "C10B6F0325F41ACD31102A9174B466F8D2DEBE58B7E644D4BAD3206709A91EB8"
                   },
                   {
                       "target":  "BepInEx/config/seneaL.valheim.ui.cfg",
@@ -152,7 +157,7 @@
                   {
                       "target":  "BepInEx/plugins/ValheimServerTweaks/ValheimServerTweaks.dll",
                       "source":  "game-files/common/BepInEx/plugins/ValheimServerTweaks/ValheimServerTweaks.dll",
-                      "sha256":  "3B6025AB45863707C7D3CED8029152740C867E148FCEF4F31C8525628EFE9215"
+                      "sha256":  "D7DCDD83E88C55AFDB545853F17E4FE7E84BB55CAD399CD62C18609C96D78C4D"
                   }
               ],
     "clientScripts":  [
