@@ -132,17 +132,32 @@
                   {
                       "target":  "BepInEx/plugins/ValheimServerTweaks/textures/Karve/sail_white.png",
                       "source":  "textures/Karve/sail_white.png",
-                      "sha256":  "3A8207AB0B114E8BA4343BB742F5876DDD16DD14E1BA84B311DFFD80424ECF0A"
+                      "sha256":  "9618D47506F0E715F693E1C3B4171B148196FD2F2CD1AEBB29A295D57ED3BF12"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/Karve/sail_white_GUIDE.png",
+                      "source":  "textures/Karve/sail_white_GUIDE.png",
+                      "sha256":  "E78E5C21B9515AC3E4DA972C576BC95D1ED97116641B067A6C406D4C3E24D0E7"
                   },
                   {
                       "target":  "BepInEx/plugins/ValheimServerTweaks/textures/Raft/sail_brown.png",
                       "source":  "textures/Raft/sail_brown.png",
-                      "sha256":  "C43AFD416D94B4DEDFF26D33D570393A4B2C6F89AEA2BC7F4BD24B62FB27D713"
+                      "sha256":  "F4BDED391FD5647F930B82F403E544A473EC9ADEB5E735D7942FEFCD692FB925"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/Raft/sail_brown_GUIDE.png",
+                      "source":  "textures/Raft/sail_brown_GUIDE.png",
+                      "sha256":  "95636A0B1574295818FF168F4FDDC8D2C2C4EBC311BBEDE04A46D01EB658F16F"
                   },
                   {
                       "target":  "BepInEx/plugins/ValheimServerTweaks/textures/Trailership/sail_frozen.png",
                       "source":  "textures/Trailership/sail_frozen.png",
-                      "sha256":  "F99617537520F5A0DACFAE11927D6A71C7DFB62E5CFCA9AD93C5D9A3D291104D"
+                      "sha256":  "045C640B33B4345C051EB1C34F0F54A8C3AA2A74F9ECF579F236A73EBD266266"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/Trailership/sail_frozen_GUIDE.png",
+                      "source":  "textures/Trailership/sail_frozen_GUIDE.png",
+                      "sha256":  "9923C2527A5DDF1006B6F1A9B88636C986D0626CF534E589234F343B8B7DFEC0"
                   },
                   {
                       "target":  "BepInEx/plugins/ValheimServerTweaks/textures/Troll/troll.png",
@@ -150,14 +165,29 @@
                       "sha256":  "6DD081EE245442011C4C504A05C8FBF09CBD78074F2F330576164457CEDCF67B"
                   },
                   {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/VikingShip/ashlandshipsail_mat.png",
+                      "source":  "textures/VikingShip/ashlandshipsail_mat.png",
+                      "sha256":  "A210736F9A7D08133EFA5476F8B5B4D5D1C7C3503F0F7D70A1E8925E1C960471"
+                  },
+                  {
                       "target":  "BepInEx/plugins/ValheimServerTweaks/textures/VikingShip/sail.png",
                       "source":  "textures/VikingShip/sail.png",
-                      "sha256":  "68DAB04741ACFB9EB8ED4A95A9DA6B324061E1143468E2FF8149F9D0E6977014"
+                      "sha256":  "342145057762757E2BBC5D128DF669B9B5960E247A8C5C262A7F11FF9A25D5CC"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/VikingShip/sail_GUIDE.png",
+                      "source":  "textures/VikingShip/sail_GUIDE.png",
+                      "sha256":  "85841962BB6F67724E9324CAB46B5CC5535A364389DF7FAFE4C23CCE20086157"
                   },
                   {
                       "target":  "BepInEx/plugins/ValheimServerTweaks/textures/VikingShip_Ashlands/ashlandshipsail_mat.png",
                       "source":  "textures/VikingShip_Ashlands/ashlandshipsail_mat.png",
-                      "sha256":  "7DC2AB03B512633A3BEFEEAD0AB3FA5F17D5C756A798179370BA7651C135B95F"
+                      "sha256":  "3F77BC63E5F2657119D82E6714A78EEFD01401A81C90B50F763715F9536EC1A3"
+                  },
+                  {
+                      "target":  "BepInEx/plugins/ValheimServerTweaks/textures/VikingShip_Ashlands/ashlandshipsail_mat_GUIDE.png",
+                      "source":  "textures/VikingShip_Ashlands/ashlandshipsail_mat_GUIDE.png",
+                      "sha256":  "B24324FB4D24095CD13AF673346DE0CBCBA5A7C3A5F94D277A0F426DAA192231"
                   },
                   {
                       "target":  "BepInEx/plugins/ValheimServerTweaks/ValheimServerTweaks.dll",
