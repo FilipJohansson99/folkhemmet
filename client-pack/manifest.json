@@ -142,7 +142,7 @@
     {
       "target": "BepInEx/plugins/ValheimServerTweaks/audio/sfx/perfekt_jimpan.ogg",
       "source": "audio/sfx/perfekt_jimpan.ogg",
-      "sha256": "D162A5734C0C44B4C5E9DEFBD897CB7447355A1B7F5CCD8973CD5AED0429B6D0"
+      "sha256": "DB87572BA60B24AFA8928583B6B7860A291E8F44BE885A730FB0D393DDD899D5"
     },
     {
       "target": "BepInEx/plugins/ValheimServerTweaks/textures/Karve/sail_white_GUIDE.png",

@@ -6,7 +6,7 @@ Use `audio_find serpent`, `audio_find neck`, `audio_find charred`, `audio_find a
 Some effect names differ from the creature's display name, so use more specific clip searches if needed.
 Current replacements (mod 1.3.4):
 
-- All 8 extracted neck clips and all 181 charred clips use `sfx/perfekt_jimpan.ogg`, converted from the supplied `perfekt_jimpan.mp3`.
+- All 8 extracted neck clips and all 181 charred clips use `sfx/perfekt_jimpan.ogg`, converted from the supplied `perfekt_jimpan.mp3` with a +6 dB volume boost (peak about -3 dBFS).
 - `encounters/serpent_aggro.ogg` is the supplied **Tjuge Pågar I Bastun (1).mp3**, converted to mono Ogg Vorbis for spatial playback.
   It plays while a living, aggroed sea serpent or bonemaw is within 100 metres of the local player. One source follows the nearest
   eligible creature; other serpents and attacks do not restart or stack the song. It loops during longer fights and stops when
