@@ -15,6 +15,7 @@ class Program
 
     static void Main()
     {
+        AudioTests.Run();
         var local = Pin("Copper");
         Minimap.instance.m_pins.Add(local);
         Tick();

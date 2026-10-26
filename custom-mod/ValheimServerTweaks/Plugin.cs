@@ -28,7 +28,7 @@ namespace ValheimServerTweaks
     {
         public const string Guid = "filip.valheim.servertweaks";
         public const string ModName = "ValheimServerTweaks";
-        public const string Version = "1.3.0";
+        public const string Version = "1.3.1";
 
         internal static ManualLogSource Log;
         internal static Plugin Instance;
@@ -54,6 +54,8 @@ namespace ValheimServerTweaks
         internal static ConfigEntry<bool> TexturesEnabled;
         internal static ConfigEntry<string> TextureFolder;
         internal static ConfigEntry<string> DumpFolder;
+        internal static ConfigEntry<bool> AudioEnabled;
+        internal static ConfigEntry<string> FaderDisplayName;
 
         /// <summary>True when running without graphics (the dedicated server).</summary>
         internal static bool IsHeadless => SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null;
@@ -122,6 +124,11 @@ namespace ValheimServerTweaks
             DumpFolder = Config.Bind("Textures", "DumpFolder", "",
                 "Client only. Where the tex_dump console command writes the original textures. Empty = 'texture-dumps' next to this mod's dll.");
 
+            AudioEnabled = Config.Bind("Audio", "Enabled", true,
+                "Client only. Replace sound effects and music using the audio/sfx and audio/music folders next to this mod's DLL.");
+            FaderDisplayName = Config.Bind("Bosses", "FaderDisplayName", "Jimpan",
+                "Client display name for Fader. Does not change the boss prefab, progression keys or kill records.");
+
             ConfigSync.Init();
             ExploreRadiusMultiplier.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
             AlwaysShowPlayersOnMap.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
@@ -139,6 +146,7 @@ namespace ValheimServerTweaks
             SharedPersistentPins.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
 
             new Harmony(Guid).PatchAll(Assembly.GetExecutingAssembly());
+            if (!IsHeadless && AudioEnabled.Value) StartCoroutine(AudioReplacements.Load());
 
             Log.LogInfo($"{ModName} {Version} loaded ({(IsHeadless ? "dedicated server" : "client")}).");
         }

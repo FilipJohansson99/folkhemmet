@@ -7,5 +7,7 @@
   <ItemGroup>
     <Compile Include="../ValheimServerTweaks/PinStore.cs" Link="PinStore.cs" />
     <Compile Include="../ValheimServerTweaks/SharedPins.cs" Link="SharedPins.cs" />
+    <Compile Include="../ValheimServerTweaks/AudioReplacements.cs" Link="AudioReplacements.cs" />
+    <Compile Include="../ValheimServerTweaks/BossNames.cs" Link="BossNames.cs" />
   </ItemGroup>
 </Project>

@@ -119,6 +119,24 @@ A player who wants to keep their own version of a purely personal config (e.g. U
 
 ## Custom mod: ValheimServerTweaks
 
+**Client assets while the server runs:** use `Publish Client Assets.bat` (or
+`start-server.ps1 -PublishClientOnly`). This refreshes and publishes textures, optional audio,
+client configuration and the custom DLL without touching the live server installation or world.
+It keeps the currently published Thunderstore mod versions. Players receive changes after fully
+exiting Valheim and launching through Folkhemmet/Play.bat. No replacement ZIP is needed.
+
+**Custom audio (1.3.1):** optional mob sound effects and music use files under `audio/sfx/` and
+`audio/music/`; see `audio/README.md` for naming and the `audio_find` / `audio_music` commands.
+This feature is client only and compatible with the running 1.3.0 server. Actual replacement
+recordings must be supplied before any sounds change.
+
+Fader's displayed name is **Jimpan** (`[Bosses] FaderDisplayName`). Its prefab, internal name,
+progression and kill records retain their original game identifiers. The requested sounds target
+serpents, necks, Ashlands creatures and Jimpan; the host will provide MP3s later.
+Custom sky artwork is also pending: `skybox/README.md` describes suitable PNG formats. The publisher
+includes that folder, but an actual sky override still needs to be integrated and checked once artwork is supplied.
+
+
 **Gameplay additions (1.3.0, staged for the next restart):**
 - Torches (including held torches), braziers, campfires and hearths burn without consuming fuel.
   Kilns and smelters keep their normal costs; normal water/cover and on/off behavior still applies.

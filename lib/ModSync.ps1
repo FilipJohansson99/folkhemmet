@@ -539,9 +539,17 @@ function Sync-GameFiles {
         $kept = $keepSet.ContainsKey(([string]$f.target).ToLowerInvariant()) -and (Test-Path -LiteralPath $dest)
         if (-not $kept -and (Get-Sha256 $dest) -ne ([string]$f.sha256).ToUpperInvariant()) {
             New-Directory (Split-Path -Parent $dest)
-            & $Fetch $f $dest
-            $got = Get-Sha256 $dest
-            if ($got -ne ([string]$f.sha256).ToUpperInvariant()) { Write-Warn "$($f.target) does not match the expected checksum (was it changed after publishing?)." }
+            $pending = "$dest.download"
+            try {
+                & $Fetch $f $pending
+                $got = Get-Sha256 $pending
+                if ($got -ne ([string]$f.sha256).ToUpperInvariant()) {
+                    throw "$($f.target) does not match the published checksum. The previous file was kept; try launching Folkhemmet again."
+                }
+                Move-Item -LiteralPath $pending -Destination $dest -Force
+            } finally {
+                if (Test-Path -LiteralPath $pending) { Remove-Item -LiteralPath $pending -Force }
+            }
             $changes++
         }
         $newState += [pscustomobject]@{ target = [string]$f.target; sha256 = ([string]$f.sha256).ToUpperInvariant() }

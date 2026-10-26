@@ -18,6 +18,9 @@
     Do everything except starting the server (useful to just publish mod changes).
 .PARAMETER NoPublish
     Don't commit/push the player pack to GitHub this time.
+.PARAMETER PublishClientOnly
+    Refresh/publish client assets using existing mod versions. Safe while the server is running;
+    does not install mods, copy files to the server, change world saves or launch/stop anything.
 .PARAMETER SkipPortCheck
     Don't check the firewall / router ports this time.
 .PARAMETER NonInteractive
@@ -30,6 +33,7 @@ param(
     [switch]$SkipModUpdate,
     [switch]$NoLaunch,
     [switch]$NoPublish,
+    [switch]$PublishClientOnly,
     [switch]$SkipPortCheck,
     [switch]$NonInteractive,
     [string]$ConfigPath
@@ -215,7 +219,9 @@ $ServerFileSources = @(
 $ClientFileSources = @(
     @{ Dir = 'game-files/common'; Prefix = '' },
     @{ Dir = 'game-files/client'; Prefix = '' },
-    @{ Dir = 'textures'; Prefix = 'BepInEx/plugins/ValheimServerTweaks/textures' }
+    @{ Dir = 'textures'; Prefix = 'BepInEx/plugins/ValheimServerTweaks/textures' },
+    @{ Dir = 'audio'; Prefix = 'BepInEx/plugins/ValheimServerTweaks/audio' },
+    @{ Dir = 'skybox'; Prefix = 'BepInEx/plugins/ValheimServerTweaks/skybox' }
 )
 $ClientScripts = @(
     @{ Name = 'Play.bat'; Source = 'client/Play.bat' },
@@ -363,20 +369,22 @@ To remove the mods: Start menu -> $name -> Remove $name mods.
     }
 }
 
-function Publish-ToGit {
-    $paths = @('mods.txt', 'client-pack', 'game-files', 'textures', 'client', 'lib', 'custom-mod', 'README.md',
+function Publish-ToGit([switch]$RequireSuccess) {
+    $paths = @('mods.txt', 'client-pack', 'game-files', 'textures', 'audio', 'skybox', 'client', 'lib', 'custom-mod', 'README.md',
                'start-server.ps1', 'Start Server.bat', 'Publish-Folkhemmet.ps1', 'Publish-Folkhemmet.bat',
+               'Publish Client Assets.bat',
                'server-config.example.psd1', '.gitignore', '.gitattributes')
     $paths = @($paths | Where-Object { Test-Path -LiteralPath (Join-Path $Root $_) })
     $add = Invoke-Git (@('add', '--') + $paths)
-    if ($add.Code -ne 0) { Write-Warn "git add failed: $($add.Output)"; return }
+    if ($add.Code -ne 0) { if ($RequireSuccess) { throw "git add failed: $($add.Output)" }; Write-Warn "git add failed: $($add.Output)"; return }
     $staged = Invoke-Git @('diff', '--cached', '--name-only')
-    if (-not $staged.Output) { Write-Info 'GitHub is already up to date.'; return }
-    $commit = Invoke-Git @('commit', '-m', "Modpack update $(Get-Date -Format 'yyyy-MM-dd HH:mm')")
-    if ($commit.Code -ne 0) { Write-Warn "git commit failed: $($commit.Output)"; return }
+    if ($staged.Output) {
+        $commit = Invoke-Git @('commit', '-m', "Modpack update $(Get-Date -Format 'yyyy-MM-dd HH:mm')")
+        if ($commit.Code -ne 0) { if ($RequireSuccess) { throw "git commit failed: $($commit.Output)" }; Write-Warn "git commit failed: $($commit.Output)"; return }
+    } elseif (-not $RequireSuccess) { Write-Info 'GitHub is already up to date.'; return }
     Write-Info 'Pushing to GitHub...'
     $push = Invoke-Git @('push', '-u', 'origin', 'HEAD')
-    if ($push.Code -ne 0) { Write-Warn "git push failed (friends won't get the update until it works): $($push.Output)"; return }
+    if ($push.Code -ne 0) { if ($RequireSuccess) { throw "git push failed: $($push.Output)" }; Write-Warn "git push failed (friends won't get the update until it works): $($push.Output)"; return }
     Write-Good 'Published - friends get the changes next time they run Play.bat.'
 }
 
@@ -475,6 +483,28 @@ Write-Host "  $($cfg.ServerName)  (world: $($cfg.WorldName), port $($cfg.Port))"
 $ServerDir = [string]$cfg.ServerDir
 $SaveDir = (Resolve-ProjectPath ([string]$cfg.SaveDir)).TrimEnd('\', '/')
 $ServerExe = Join-Path $ServerDir 'valheim_server.exe'
+
+if ($PublishClientOnly) {
+    # Deliberately return before ANY server checks, downloads, installation or launch.
+    # Keep the package versions already used by running players and the server.
+    $published = Read-JsonFile $ManifestPath
+    if (-not $published -or -not $published.bepinex.fullName -or -not $published.bepinex.version -or -not $published.bepinex.url) {
+        throw 'An existing player manifest is required. Run a normal server setup first.'
+    }
+    $existingBep = [pscustomobject]@{ FullName = $published.bepinex.fullName; Version = $published.bepinex.version; DownloadUrl = $published.bepinex.url }
+    $existingMods = @($published.mods | Where-Object { $_ } | ForEach-Object {
+        if (-not $_.fullName -or -not $_.version -or -not $_.url) { throw 'The existing player manifest has an incomplete mod entry.' }
+        [pscustomobject]@{ FullName = $_.fullName; Version = $_.version; DownloadUrl = $_.url }
+    })
+    $github = Get-GitHubInfo
+    if (-not $NoPublish -and -not $github) { throw 'GitHub is not configured for this project.' }
+    Write-Step 'Refreshing client assets (server stays running; mod versions are preserved)'
+    Write-ClientManifest $existingBep $existingMods (Get-LocalFileEntries -Sources $ClientFileSources)
+    if ($github) { Write-ClientKit $github }
+    if (-not $NoPublish) { Publish-ToGit -RequireSuccess }
+    Write-Step 'Client assets ready - players receive them on the next Folkhemmet launch'
+    return
+}
 
 if (-not (Test-Path -LiteralPath $ServerDir)) {
     throw "Dedicated server not found at '$ServerDir'. Install 'Valheim Dedicated Server' from Steam (Library -> Tools) or fix ServerDir in $ConfigPath."

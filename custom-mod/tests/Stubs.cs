@@ -69,6 +69,11 @@ namespace ValheimServerTweaks
     internal static class Plugin
     {
         public static bool IsHeadless;
+        public static string PluginDir = "";
+        public static BoolSetting AudioEnabled = new BoolSetting { Value = true };
+        public static StringSetting FaderDisplayName = new StringSetting { Value = "Jimpan" };
+        public class BoolSetting { public bool Value; }
+        public class StringSetting { public string Value; }
         public static LogSink Log = new LogSink();
         public class LogSink { public void LogInfo(string message) { } public void LogWarning(string message) => throw new Exception(message); public void LogError(string message) => throw new Exception(message); }
     }

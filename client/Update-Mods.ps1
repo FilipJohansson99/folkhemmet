@@ -165,9 +165,11 @@ function Get-BaseUrl([string]$ManifestUrl) {
     return $ManifestUrl.Substring(0, $i)
 }
 
-function Get-SourceUrl([string]$Base, [string]$Source) {
+function Get-SourceUrl([string]$Base, [string]$Source, [string]$Sha256 = '') {
     $escaped = ($Source.Split('/') | ForEach-Object { [Uri]::EscapeDataString($_) }) -join '/'
-    return $Base + $escaped
+    $url = $Base + $escaped
+    if ($Sha256) { $url += '?sha256=' + [Uri]::EscapeDataString($Sha256) }
+    return $url
 }
 
 function Update-Scripts($Manifest, [string]$Base) {
@@ -177,7 +179,7 @@ function Update-Scripts($Manifest, [string]$Base) {
         $local = Join-Path $Here $s.name
         if ((Get-Sha256 $local) -eq ([string]$s.sha256).ToUpperInvariant()) { continue }
         $tmp = "$local.download"
-        Save-Url (Get-SourceUrl $Base $s.source) $tmp
+        Save-Url (Get-SourceUrl $Base $s.source $s.sha256) $tmp
         if ((Get-Sha256 $tmp) -ne ([string]$s.sha256).ToUpperInvariant()) { Remove-PathSafe $tmp; Write-Warn "Could not verify new $($s.name), keeping the old one."; continue }
         if ($s.name -eq 'Play.bat') {
             # The running Play.bat must not be overwritten - it swaps the new one in on its next start.
@@ -251,7 +253,7 @@ if ($keep.Count -gt 0) { Write-Info "Keeping your own: $(@($cfg.KeepLocalConfigs
 if ($ProjectRoot) {
     Sync-GameFiles -GameDir $game -Files $files -Keep $keep -Fetch { param($f, $dest) [IO.File]::Copy((Join-Path $ProjectRoot (ConvertTo-NativePath $f.source)), $dest, $true) }
 } else {
-    Sync-GameFiles -GameDir $game -Files $files -Keep $keep -Fetch { param($f, $dest) Save-Url (Get-SourceUrl $base $f.source) $dest }
+    Sync-GameFiles -GameDir $game -Files $files -Keep $keep -Fetch { param($f, $dest) Save-Url (Get-SourceUrl $base $f.source $f.sha256) $dest }
 }
 
 # Keep the download cache small: only the zips of the current versions (the host's cache is managed by start-server.ps1).
