@@ -13,15 +13,16 @@ namespace ValheimServerTweaks
     {
         private static readonly Dictionary<string, AudioClip> Effects = new Dictionary<string, AudioClip>(StringComparer.OrdinalIgnoreCase);
         private static readonly Dictionary<string, AudioClip> Music = new Dictionary<string, AudioClip>(StringComparer.OrdinalIgnoreCase);
+        private static readonly Dictionary<string, AudioClip> MusicClips = new Dictionary<string, AudioClip>(StringComparer.OrdinalIgnoreCase);
 
         internal static IEnumerator Load()
         {
             string root = Path.Combine(Plugin.PluginDir, "audio");
-            foreach (string kind in new[] { "sfx", "music" })
+            foreach (string kind in new[] { "sfx", "music", "music/clips" })
             {
                 string folder = Path.Combine(root, kind);
                 if (!Directory.Exists(folder)) continue;
-                Dictionary<string, AudioClip> target = kind == "sfx" ? Effects : Music;
+                Dictionary<string, AudioClip> target = kind == "sfx" ? Effects : kind == "music" ? Music : MusicClips;
                 foreach (string file in Directory.GetFiles(folder).OrderBy(path => path, StringComparer.OrdinalIgnoreCase))
                 {
                     AudioType format;
@@ -59,7 +60,7 @@ namespace ValheimServerTweaks
                     }
                 }
             }
-            Plugin.Log.LogInfo($"Custom audio loaded: {Effects.Count} sound effects, {Music.Count} music tracks.");
+            Plugin.Log.LogInfo($"Custom audio loaded: {Effects.Count} sound effects, {Music.Count} music groups, {MusicClips.Count} individual music clips.");
         }
 
         // Only replace the array during selection. Restore even if playback throws,
@@ -102,12 +103,28 @@ namespace ValheimServerTweaks
             private static void Prefix(MusicMan.NamedMusic ___m_queuedMusic, out MusicState __state)
             {
                 __state = null;
-                if (Plugin.IsHeadless || !Plugin.AudioEnabled.Value || ___m_queuedMusic == null ||
-                    !Music.TryGetValue(___m_queuedMusic.m_name, out AudioClip replacement)) return;
+                if (Plugin.IsHeadless || !Plugin.AudioEnabled.Value || ___m_queuedMusic == null) return;
+                AudioClip[] replacements;
+                if (Music.TryGetValue(___m_queuedMusic.m_name, out AudioClip replacement))
+                    replacements = new[] { replacement };
+                else
+                {
+                    AudioClip[] originals = ___m_queuedMusic.m_clips;
+                    if (originals == null) return;
+                    replacements = null;
+                    for (int i = 0; i < originals.Length; i++)
+                    {
+                        if (originals[i] == null || !MusicClips.TryGetValue(originals[i].name, out replacement)) continue;
+                        if (replacements == null) replacements = (AudioClip[])originals.Clone();
+                        replacements[i] = replacement;
+                    }
+                    if (replacements == null) return;
+                }
                 __state = new MusicState { Track = ___m_queuedMusic, OriginalClips = ___m_queuedMusic.m_clips };
-                ___m_queuedMusic.m_clips = new[] { replacement };
+                ___m_queuedMusic.m_clips = replacements;
                 // A replacement may be shorter than the original track.
-                ___m_queuedMusic.m_savedPlaybackPos = Mathf.Clamp(___m_queuedMusic.m_savedPlaybackPos, 0, replacement.samples - 1);
+                int shortest = replacements.Where(clip => clip != null).Select(clip => clip.samples).DefaultIfEmpty(1).Min();
+                ___m_queuedMusic.m_savedPlaybackPos = Mathf.Clamp(___m_queuedMusic.m_savedPlaybackPos, 0, Math.Max(0, shortest - 1));
             }
 
             private static void Finalizer(MusicState __state)

@@ -28,7 +28,7 @@ namespace ValheimServerTweaks
     {
         public const string Guid = "filip.valheim.servertweaks";
         public const string ModName = "ValheimServerTweaks";
-        public const string Version = "1.3.1";
+        public const string Version = "1.3.2";
 
         internal static ManualLogSource Log;
         internal static Plugin Instance;

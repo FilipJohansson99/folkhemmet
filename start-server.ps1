@@ -373,6 +373,7 @@ function Publish-ToGit([switch]$RequireSuccess) {
     $paths = @('mods.txt', 'client-pack', 'game-files', 'textures', 'audio', 'skybox', 'client', 'lib', 'custom-mod', 'README.md',
                'start-server.ps1', 'Start Server.bat', 'Publish-Folkhemmet.ps1', 'Publish-Folkhemmet.bat',
                'Publish Client Assets.bat',
+               'Publish Edited Audio.bat',
                'server-config.example.psd1', '.gitignore', '.gitattributes')
     $paths = @($paths | Where-Object { Test-Path -LiteralPath (Join-Path $Root $_) })
     $add = Invoke-Git (@('add', '--') + $paths)

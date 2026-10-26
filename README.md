@@ -130,11 +130,16 @@ exiting Valheim and launching through Folkhemmet/Play.bat. No replacement ZIP is
 This feature is client only and compatible with the running 1.3.0 server. Actual replacement
 recordings must be supplied before any sounds change.
 
+**Editable audio workshop (1.3.2):** `asset-workshop/` contains local OGG exports of the requested
+creature sounds and all game music. Replace selected files there, or add MP3/WAV versions beside
+the unchanged originals using the same base name. Run `Publish Edited Audio.bat` to convert and
+publish only edited clips. The workshop is ignored by Git. `audio/music/clips/` supports replacing
+individual recordings independently of the game's music groups. See `audio/README.md`.
+
 Fader's displayed name is **Jimpan** (`[Bosses] FaderDisplayName`). Its prefab, internal name,
 progression and kill records retain their original game identifiers. The requested sounds target
 serpents, necks, Ashlands creatures and Jimpan; the host will provide MP3s later.
-Custom sky artwork is also pending: `skybox/README.md` describes suitable PNG formats. The publisher
-includes that folder, but an actual sky override still needs to be integrated and checked once artwork is supplied.
+Skybox work has been skipped at the host's request; no sky override is enabled.
 
 
 **Gameplay additions (1.3.0, staged for the next restart):**

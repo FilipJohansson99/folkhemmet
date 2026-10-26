@@ -53,6 +53,21 @@ internal static class AudioTests
         Call("MusicMan_UpdateMusic", "Prefix", args);
         Assert(args[1] == null, "unmapped music uses original soundtrack");
 
+        var musicClips = (Dictionary<string, AudioClip>)typeof(AudioReplacements).GetField("MusicClips", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
+        musicClips.Add("TROLL_IDLE", customTrack);
+        var perClipTrack = new MusicMan.NamedMusic { m_name = "per-clip", m_clips = clips, m_savedPlaybackPos = 100 };
+        args = new object[] { perClipTrack, null };
+        Call("MusicMan_UpdateMusic", "Prefix", args);
+        Assert(perClipTrack.m_clips[0] == customTrack && perClipTrack.m_clips[1] == other && clips[0] == original,
+            "individual music file replaced without replacing other tracks in its group");
+        Call("MusicMan_UpdateMusic", "Finalizer", new[] { args[1] });
+        Assert(perClipTrack.m_clips == clips, "individual music replacement restores catalogue after selection");
+        track.m_clips = clips;
+        args = new object[] { track, null };
+        Call("MusicMan_UpdateMusic", "Prefix", args);
+        Assert(track.m_clips.Length == 1 && track.m_clips[0] == customTrack, "whole-group override takes priority over per-file music replacement");
+        Call("MusicMan_UpdateMusic", "Finalizer", new[] { args[1] });
+
         var fader = new Character { m_name = "$enemy_fader", gameObject = new GameObject { name = "Fader(Clone)" } };
         var rename = typeof(BossNames).GetNestedType("Character_GetHoverName", BindingFlags.NonPublic)
             .GetMethod("Postfix", BindingFlags.Static | BindingFlags.NonPublic);

@@ -187,7 +187,7 @@
     {
       "target": "BepInEx/plugins/ValheimServerTweaks/ValheimServerTweaks.dll",
       "source": "game-files/common/BepInEx/plugins/ValheimServerTweaks/ValheimServerTweaks.dll",
-      "sha256": "99532D53F844E3CD421447204B5E4374DA269A83C7BBD93BA829C72097728D1C"
+      "sha256": "BC1B0F434021367D37E6E3F8D3FEC795887843C81C20A006D513F6FA235955BC"
     }
   ],
   "clientScripts": [

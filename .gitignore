@@ -12,3 +12,4 @@ custom-mod/**/bin/
 custom-mod/**/obj/
 Claude outputs/
 sail-templates/
+asset-workshop/
