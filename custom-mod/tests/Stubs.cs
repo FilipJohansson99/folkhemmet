@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace HarmonyLib
 {
-    [AttributeUsage(AttributeTargets.Class)] public class HarmonyPatch : Attribute { public HarmonyPatch(Type t, string name) { } }
+    [AttributeUsage(AttributeTargets.Class)] public class HarmonyPatch : Attribute { public HarmonyPatch(Type t, string name) { } public HarmonyPatch(Type t, string name, Type[] args) { } }
     [AttributeUsage(AttributeTargets.Method)] public class HarmonyPriority : Attribute { public HarmonyPriority(int p) { } }
     public static class Priority { public const int First = 800, Last = 0; }
     public static class AccessTools
@@ -22,7 +22,7 @@ namespace HarmonyLib
 }
 namespace UnityEngine
 {
-    public static class Time { public static float unscaledTime; }
+    public static class Time { public static float unscaledTime, realtimeSinceStartup; }
     public struct Vector3
     {
         public float x, y, z;
@@ -71,11 +71,14 @@ namespace ValheimServerTweaks
         public static bool IsHeadless;
         public static string PluginDir = "";
         public static BoolSetting AudioEnabled = new BoolSetting { Value = true };
+        public static BoolSetting IntroEnabled = new BoolSetting { Value = true };
+        public static BoolSetting ForceStartupIntro = new BoolSetting { Value = true };
         public static StringSetting FaderDisplayName = new StringSetting { Value = "Jimpan" };
         public class BoolSetting { public bool Value; }
         public class StringSetting { public string Value; }
         public static LogSink Log = new LogSink();
-        public class LogSink { public void LogInfo(string message) { } public void LogWarning(string message) => throw new Exception(message); public void LogError(string message) => throw new Exception(message); }
+        public static bool AllowWarnings;
+        public class LogSink { public void LogInfo(string message) { } public void LogWarning(string message) { if (!AllowWarnings) throw new Exception(message); } public void LogError(string message) => throw new Exception(message); }
     }
     internal static class Hooks
     {

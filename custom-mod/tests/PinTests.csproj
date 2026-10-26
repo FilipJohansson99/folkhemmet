@@ -9,5 +9,6 @@
     <Compile Include="../ValheimServerTweaks/SharedPins.cs" Link="SharedPins.cs" />
     <Compile Include="../ValheimServerTweaks/AudioReplacements.cs" Link="AudioReplacements.cs" />
     <Compile Include="../ValheimServerTweaks/BossNames.cs" Link="BossNames.cs" />
+    <Compile Include="../ValheimServerTweaks/IntroVideo.cs" Link="IntroVideo.cs" />
   </ItemGroup>
 </Project>

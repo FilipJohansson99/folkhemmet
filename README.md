@@ -141,6 +141,12 @@ progression and kill records retain their original game identifiers. The request
 serpents, necks, Ashlands creatures and Jimpan; the host will provide MP3s later.
 Skybox work has been skipped at the host's request; no sky override is enabled.
 
+**Custom startup video (1.3.3):** the supplied `Movies/intro.mov` is converted to `videos/intro.mp4`
+and automatically installed on clients. It replaces the startup story cinematic while keeping the
+original portrait proportions; it is about 7.4 seconds long and has no audio. Normal skip controls
+still work. The saved vanilla skip-intro preference is preserved, and other cinematics are unchanged.
+See `videos/README.md` for configuration and publication.
+
 
 **Gameplay additions (1.3.0, staged for the next restart):**
 - Torches (including held torches), braziers, campfires and hearths burn without consuming fuel.

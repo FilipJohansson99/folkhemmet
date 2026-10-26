@@ -221,6 +221,7 @@ $ClientFileSources = @(
     @{ Dir = 'game-files/client'; Prefix = '' },
     @{ Dir = 'textures'; Prefix = 'BepInEx/plugins/ValheimServerTweaks/textures' },
     @{ Dir = 'audio'; Prefix = 'BepInEx/plugins/ValheimServerTweaks/audio' },
+    @{ Dir = 'videos'; Prefix = 'BepInEx/plugins/ValheimServerTweaks/videos' },
     @{ Dir = 'skybox'; Prefix = 'BepInEx/plugins/ValheimServerTweaks/skybox' }
 )
 $ClientScripts = @(
@@ -370,7 +371,7 @@ To remove the mods: Start menu -> $name -> Remove $name mods.
 }
 
 function Publish-ToGit([switch]$RequireSuccess) {
-    $paths = @('mods.txt', 'client-pack', 'game-files', 'textures', 'audio', 'skybox', 'client', 'lib', 'custom-mod', 'README.md',
+    $paths = @('mods.txt', 'client-pack', 'game-files', 'textures', 'audio', 'videos', 'skybox', 'client', 'lib', 'custom-mod', 'README.md',
                'start-server.ps1', 'Start Server.bat', 'Publish-Folkhemmet.ps1', 'Publish-Folkhemmet.bat',
                'Publish Client Assets.bat',
                'Publish Edited Audio.bat',

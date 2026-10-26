@@ -92,7 +92,7 @@
     {
       "target": "BepInEx/config/filip.valheim.servertweaks.cfg",
       "source": "game-files/common/BepInEx/config/filip.valheim.servertweaks.cfg",
-      "sha256": "8B5A99668437B820215ADBE698B3467C5001DAFC0F64F72A4DD54AAF5A25A2CD"
+      "sha256": "04E3309B00552121E56F103139041AEC768B0E904182FC79B8BBBFDACA9D84A0"
     },
     {
       "target": "BepInEx/config/gravebear.odinsfoodbarrels.cfg",
@@ -187,7 +187,12 @@
     {
       "target": "BepInEx/plugins/ValheimServerTweaks/ValheimServerTweaks.dll",
       "source": "game-files/common/BepInEx/plugins/ValheimServerTweaks/ValheimServerTweaks.dll",
-      "sha256": "BC1B0F434021367D37E6E3F8D3FEC795887843C81C20A006D513F6FA235955BC"
+      "sha256": "E686FF1F93EB640E0771547038CB1C7AFBFE9DE8A7CDF58760A8172C33C22C2F"
+    },
+    {
+      "target": "BepInEx/plugins/ValheimServerTweaks/videos/intro.mp4",
+      "source": "videos/intro.mp4",
+      "sha256": "3C1BE4E5E8620539C3F8FDF140861CB729FD8D8B617F402B64878F9D4B365C2C"
     }
   ],
   "clientScripts": [

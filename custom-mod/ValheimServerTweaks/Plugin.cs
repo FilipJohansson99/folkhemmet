@@ -28,7 +28,7 @@ namespace ValheimServerTweaks
     {
         public const string Guid = "filip.valheim.servertweaks";
         public const string ModName = "ValheimServerTweaks";
-        public const string Version = "1.3.2";
+        public const string Version = "1.3.3";
 
         internal static ManualLogSource Log;
         internal static Plugin Instance;
@@ -56,6 +56,8 @@ namespace ValheimServerTweaks
         internal static ConfigEntry<string> DumpFolder;
         internal static ConfigEntry<bool> AudioEnabled;
         internal static ConfigEntry<string> FaderDisplayName;
+        internal static ConfigEntry<bool> IntroEnabled;
+        internal static ConfigEntry<bool> ForceStartupIntro;
 
         /// <summary>True when running without graphics (the dedicated server).</summary>
         internal static bool IsHeadless => SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null;
@@ -128,6 +130,10 @@ namespace ValheimServerTweaks
                 "Client only. Replace sound effects and music using the audio/sfx and audio/music folders next to this mod's DLL.");
             FaderDisplayName = Config.Bind("Bosses", "FaderDisplayName", "Jimpan",
                 "Client display name for Fader. Does not change the boss prefab, progression keys or kill records.");
+            IntroEnabled = Config.Bind("Video", "ReplaceStartupIntro", true,
+                "Client only. Replace the startup intro cinematic with videos/intro.mp4 next to this mod's DLL.");
+            ForceStartupIntro = Config.Bind("Video", "ShowOnStartup", true,
+                "Show the custom intro on a normal fresh game launch even if the vanilla intro was disabled. Preserves the saved vanilla preference.");
 
             ConfigSync.Init();
             ExploreRadiusMultiplier.SettingChanged += (s, e) => ConfigSync.OnLocalConfigChanged();
