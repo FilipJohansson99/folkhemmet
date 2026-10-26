@@ -8,3 +8,13 @@
 *.jpg binary
 *.zip binary
 *.ico binary
+
+# Launcher downloads are verified against hashes of the exact local bytes.
+# Keep delivery sources byte-for-byte identical in Git and on the host.
+client/** -text
+lib/ModSync.ps1 -text
+game-files/** -text
+audio/** -text
+textures/** -text
+videos/** -text
+skybox/** -text

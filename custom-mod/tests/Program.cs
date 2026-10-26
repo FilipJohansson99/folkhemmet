@@ -16,6 +16,7 @@ class Program
     static void Main()
     {
         AudioTests.Run();
+        AggroAudioTests.Run();
         VideoTests.Run();
         var local = Pin("Copper");
         Minimap.instance.m_pins.Add(local);

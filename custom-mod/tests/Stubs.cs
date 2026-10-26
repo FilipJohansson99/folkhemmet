@@ -46,7 +46,7 @@ public class Minimap
         public bool m_save, m_checked;
     }
 }
-public class Player { public static Player m_localPlayer = new Player(); }
+public class Player : Character { public static Player m_localPlayer = new Player(); }
 public class World { public string Path; public string GetDBPath() => Path; }
 public class ZNet
 {
@@ -69,6 +69,8 @@ namespace ValheimServerTweaks
     internal static class Plugin
     {
         public static bool IsHeadless;
+        public static FakeComponent Instance = new FakeComponent();
+        public class FakeComponent { public UnityEngine.Transform transform = new UnityEngine.Transform(); }
         public static string PluginDir = "";
         public static BoolSetting AudioEnabled = new BoolSetting { Value = true };
         public static BoolSetting IntroEnabled = new BoolSetting { Value = true };

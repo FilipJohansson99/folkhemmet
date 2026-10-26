@@ -141,6 +141,11 @@ progression and kill records retain their original game identifiers. The request
 serpents, necks, Ashlands creatures and Jimpan; the host will provide MP3s later.
 Skybox work has been skipped at the host's request; no sky override is enabled.
 
+**Creature audio (1.3.4):** neck and charred clips share the supplied `perfekt_jimpan` recording.
+Sea serpents and bonemaws play the supplied `Tjuge Pågar I Bastun` track while nearby and aggroed,
+using one spatial source that stops after the encounter. Players receive both through the launcher;
+the running server does not need a restart. See `audio/README.md` for mappings and later edits.
+
 **Custom startup video (1.3.3):** the supplied `Movies/intro.mov` is converted to `videos/intro.mp4`
 and automatically installed on clients. It replaces the startup story cinematic while keeping the
 original portrait proportions; it is about 7.4 seconds long and has no audio. Normal skip controls

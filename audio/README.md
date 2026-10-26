@@ -4,7 +4,21 @@ Requested targets: sea serpent (`Serpent`), necks (`Neck`), Ashlands creatures, 
 Use `audio_find serpent`, `audio_find neck`, `audio_find charred`, `audio_find asksvin`, `audio_find morgen`,
 `audio_find volture`, `audio_find bonemaw`, and `audio_find fader` to discover related effect objects/clips.
 Some effect names differ from the creature's display name, so use more specific clip searches if needed.
-The host will supply the MP3 recordings later; no audio content has been chosen or generated.
+Current replacements (mod 1.3.4):
+
+- All 8 extracted neck clips and all 181 charred clips use `sfx/perfekt_jimpan.ogg`, converted from the supplied `perfekt_jimpan.mp3`.
+- `encounters/serpent_aggro.ogg` is the supplied **Tjuge Pågar I Bastun (1).mp3**, converted to mono Ogg Vorbis for spatial playback.
+  It plays while a living, aggroed sea serpent or bonemaw is within 100 metres of the local player. One source follows the nearest
+  eligible creature; other serpents and attacks do not restart or stack the song. It loops during longer fights and stops when
+  there are no nearby aggroed serpents, on player death/logout, or when custom audio is disabled. It uses the game's ambience/SFX
+  mixer and distance fading. It adds a continuous encounter sound; the creatures' ordinary combat effects remain.
+  Aggro is read from the game's existing replicated AI state, so this works with the server still on its current mod.
+
+The short phrase is shared using `sfx-aliases.cfg` (`original clip name=replacement clip name`). It is decoded once, rather than
+loading 189 identical recordings. A direct `sfx/<original clip name>.ogg` takes priority over an alias, so importing later edits
+from the workshop can still customize individual sounds. Change `sfx/perfekt_jimpan.ogg` to update the shared phrase, or
+`encounters/serpent_aggro.ogg` to update the aggro song, then run **Publish Client Assets.bat**. Long encounter audio streams
+from disk. The workshop baseline originals and the supplied source MP3s remain local.
 
 This folder is delivered automatically by the Folkhemmet launcher. Players do not need another ZIP or manual mod installation.
 
@@ -42,4 +56,4 @@ launch through Folkhemmet/Play.bat to receive the update. Already-running client
 Sound replacements do not need a server restart. The custom mod DLL must be rebuilt with `custom-mod/build.ps1` only when
 its code changes; simply editing/replacing audio files does not need a rebuild.
 
-No replacement sounds are included yet. The original game audio remains until edited files are imported and published.
+Sounds without a direct replacement or an entry in `sfx-aliases.cfg` retain their original audio.

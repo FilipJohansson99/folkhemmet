@@ -14,15 +14,48 @@ namespace ValheimServerTweaks
         private static readonly Dictionary<string, AudioClip> Effects = new Dictionary<string, AudioClip>(StringComparer.OrdinalIgnoreCase);
         private static readonly Dictionary<string, AudioClip> Music = new Dictionary<string, AudioClip>(StringComparer.OrdinalIgnoreCase);
         private static readonly Dictionary<string, AudioClip> MusicClips = new Dictionary<string, AudioClip>(StringComparer.OrdinalIgnoreCase);
+        private static readonly Dictionary<string, AudioClip> Encounters = new Dictionary<string, AudioClip>(StringComparer.OrdinalIgnoreCase);
+        private static readonly Dictionary<string, string> EffectAliases = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+        internal static void ReadAliases(IEnumerable<string> lines)
+        {
+            EffectAliases.Clear();
+            foreach (string line in lines)
+            {
+                string text = line.Trim();
+                if (text.Length == 0 || text.StartsWith("#")) continue;
+                int split = text.IndexOf('=');
+                if (split <= 0 || split == text.Length - 1)
+                {
+                    Plugin.Log.LogWarning($"Ignoring invalid audio alias: {text}");
+                    continue;
+                }
+                string original = text.Substring(0, split).Trim();
+                string replacement = text.Substring(split + 1).Trim();
+                if (original.Length > 0 && replacement.Length > 0) EffectAliases[original] = replacement;
+            }
+        }
+
+        internal static bool TryGetEncounter(string name, out AudioClip clip) => Encounters.TryGetValue(name, out clip);
+
+        private static bool TryGetEffect(string name, out AudioClip clip)
+        {
+            // An individually edited original still takes priority over a shared alias.
+            if (Effects.TryGetValue(name, out clip)) return true;
+            return EffectAliases.TryGetValue(name, out string alias) && Effects.TryGetValue(alias, out clip);
+        }
 
         internal static IEnumerator Load()
         {
             string root = Path.Combine(Plugin.PluginDir, "audio");
-            foreach (string kind in new[] { "sfx", "music", "music/clips" })
+            string aliases = Path.Combine(root, "sfx-aliases.cfg");
+            try { if (File.Exists(aliases)) ReadAliases(File.ReadAllLines(aliases)); }
+            catch (Exception e) { Plugin.Log.LogWarning($"Could not read audio aliases: {e.Message}"); }
+            foreach (string kind in new[] { "sfx", "music", "music/clips", "encounters" })
             {
                 string folder = Path.Combine(root, kind);
                 if (!Directory.Exists(folder)) continue;
-                Dictionary<string, AudioClip> target = kind == "sfx" ? Effects : kind == "music" ? Music : MusicClips;
+                Dictionary<string, AudioClip> target = kind == "sfx" ? Effects : kind == "music" ? Music : kind == "encounters" ? Encounters : MusicClips;
                 foreach (string file in Directory.GetFiles(folder).OrderBy(path => path, StringComparer.OrdinalIgnoreCase))
                 {
                     AudioType format;
@@ -44,6 +77,9 @@ namespace ValheimServerTweaks
                     catch (Exception e) { Plugin.Log.LogWarning($"Could not open audio '{file}': {e.Message}"); continue; }
                     using (request)
                     {
+                        // Long encounter songs stream from the local OGG instead of keeping
+                        // several minutes of decoded PCM in memory.
+                        if (kind == "encounters") ((DownloadHandlerAudioClip)request.downloadHandler).streamAudio = true;
                         request.timeout = 30;
                         yield return request.SendWebRequest();
                         if (request.result != UnityWebRequest.Result.Success)
@@ -60,7 +96,7 @@ namespace ValheimServerTweaks
                     }
                 }
             }
-            Plugin.Log.LogInfo($"Custom audio loaded: {Effects.Count} sound effects, {Music.Count} music groups, {MusicClips.Count} individual music clips.");
+            Plugin.Log.LogInfo($"Custom audio loaded: {Effects.Count} sound effects, {EffectAliases.Count} effect aliases, {Music.Count} music groups, {MusicClips.Count} individual music clips, {Encounters.Count} encounter tracks.");
         }
 
         // Only replace the array during selection. Restore even if playback throws,
@@ -76,7 +112,7 @@ namespace ValheimServerTweaks
                 for (int i = 0; i < __instance.m_audioClips.Length; i++)
                 {
                     AudioClip original = __instance.m_audioClips[i];
-                    if (original == null || !Effects.TryGetValue(original.name, out AudioClip replacement)) continue;
+                    if (original == null || !TryGetEffect(original.name, out AudioClip replacement)) continue;
                     if (replaced == null) replaced = (AudioClip[])__instance.m_audioClips.Clone();
                     replaced[i] = replacement;
                 }

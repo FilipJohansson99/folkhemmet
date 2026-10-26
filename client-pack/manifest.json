@@ -130,6 +130,21 @@
       "sha256": "C213AEAB97E61938E1FC877260C28B899F097C7D5FB46625127BEA8D126071A0"
     },
     {
+      "target": "BepInEx/plugins/ValheimServerTweaks/audio/encounters/serpent_aggro.ogg",
+      "source": "audio/encounters/serpent_aggro.ogg",
+      "sha256": "CCA65498D714709C2F32BC150ADD32AF9461B8D78CE754E0315AA1BA0B63042F"
+    },
+    {
+      "target": "BepInEx/plugins/ValheimServerTweaks/audio/sfx-aliases.cfg",
+      "source": "audio/sfx-aliases.cfg",
+      "sha256": "E9A4E6B0071B95CDEDC71849DB580BE60CA58FB7CDEE328A575E49A5F6F07AAF"
+    },
+    {
+      "target": "BepInEx/plugins/ValheimServerTweaks/audio/sfx/perfekt_jimpan.ogg",
+      "source": "audio/sfx/perfekt_jimpan.ogg",
+      "sha256": "D162A5734C0C44B4C5E9DEFBD897CB7447355A1B7F5CCD8973CD5AED0429B6D0"
+    },
+    {
       "target": "BepInEx/plugins/ValheimServerTweaks/textures/Karve/sail_white_GUIDE.png",
       "source": "textures/Karve/sail_white_GUIDE.png",
       "sha256": "E78E5C21B9515AC3E4DA972C576BC95D1ED97116641B067A6C406D4C3E24D0E7"
@@ -187,7 +202,7 @@
     {
       "target": "BepInEx/plugins/ValheimServerTweaks/ValheimServerTweaks.dll",
       "source": "game-files/common/BepInEx/plugins/ValheimServerTweaks/ValheimServerTweaks.dll",
-      "sha256": "E686FF1F93EB640E0771547038CB1C7AFBFE9DE8A7CDF58760A8172C33C22C2F"
+      "sha256": "77D0D3C826A0E57AC356315F211B36D3190204503359D9BD33E47F99D8995926"
     },
     {
       "target": "BepInEx/plugins/ValheimServerTweaks/videos/intro.mp4",

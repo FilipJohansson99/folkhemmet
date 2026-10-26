@@ -30,6 +30,26 @@ internal static class AudioTests
             "only matching SFX clip is replaced, case insensitively, without mutating original array");
         Call("ZSFX_Play", "Finalizer", args);
         Assert(effect.m_audioClips == clips, "original SFX array restored after playback or exception");
+        AudioReplacements.ReadAliases(new[] { "# comment", "", " shared_neck = TROLL_IDLE ", "TROLL_IDLE=missing" });
+        var aliased = new AudioClip { name = "SHARED_NECK" };
+        effect.m_audioClips = new[] { aliased, other };
+        args = new object[] { effect, null };
+        Call("ZSFX_Play", "Prefix", args);
+        Assert(effect.m_audioClips[0] == custom && effect.m_audioClips[1] == other,
+            "shared alias replaces selected sounds case insensitively and preserves unrelated sounds");
+        Call("ZSFX_Play", "Finalizer", args);
+        effect.m_audioClips = clips;
+        args = new object[] { effect, null };
+        Call("ZSFX_Play", "Prefix", args);
+        Assert(effect.m_audioClips[0] == custom, "individual clip override takes precedence over shared alias");
+        Call("ZSFX_Play", "Finalizer", args);
+        AudioReplacements.ReadAliases(new[] { "troll_attack=missing" });
+        effect.m_audioClips = new[] { other };
+        args = new object[] { effect, null };
+        Call("ZSFX_Play", "Prefix", args);
+        Assert(args[1] == null && effect.m_audioClips[0] == other, "missing alias recording safely preserves vanilla audio");
+        AudioReplacements.ReadAliases(Array.Empty<string>());
+        effect.m_audioClips = clips;
         Plugin.IsHeadless = true;
         args = new object[] { effect, null };
         Call("ZSFX_Play", "Prefix", args);

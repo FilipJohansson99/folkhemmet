@@ -28,7 +28,7 @@ namespace ValheimServerTweaks
     {
         public const string Guid = "filip.valheim.servertweaks";
         public const string ModName = "ValheimServerTweaks";
-        public const string Version = "1.3.3";
+        public const string Version = "1.3.4";
 
         internal static ManualLogSource Log;
         internal static Plugin Instance;
@@ -157,6 +157,12 @@ namespace ValheimServerTweaks
             Log.LogInfo($"{ModName} {Version} loaded ({(IsHeadless ? "dedicated server" : "client")}).");
         }
 
-        private void Update() => SharedPins.Tick();
+        private void Update()
+        {
+            SharedPins.Tick();
+            AggroAudio.Tick();
+        }
+
+        private void OnDestroy() => AggroAudio.Cleanup();
     }
 }
