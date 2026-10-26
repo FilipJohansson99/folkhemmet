@@ -19,8 +19,8 @@
                  },
                  {
                      "fullName":  "JereKuusela-Infinity_Hammer",
-                     "version":  "1.90.0",
-                     "url":  "https://thunderstore.io/package/download/JereKuusela/Infinity_Hammer/1.90.0/"
+                     "version":  "1.91.0",
+                     "url":  "https://thunderstore.io/package/download/JereKuusela/Infinity_Hammer/1.91.0/"
                  },
                  {
                      "fullName":  "JereKuusela-Server_devcommands",
@@ -29,8 +29,8 @@
                  },
                  {
                      "fullName":  "JereKuusela-World_Edit_Commands",
-                     "version":  "1.81.0",
-                     "url":  "https://thunderstore.io/package/download/JereKuusela/World_Edit_Commands/1.81.0/"
+                     "version":  "1.82.0",
+                     "url":  "https://thunderstore.io/package/download/JereKuusela/World_Edit_Commands/1.82.0/"
                  },
                  {
                      "fullName":  "Mydayyy-ServerSideMap",
@@ -54,8 +54,8 @@
                  },
                  {
                      "fullName":  "seneaL-SeneaL_UI",
-                     "version":  "1.2.5",
-                     "url":  "https://thunderstore.io/package/download/seneaL/SeneaL_UI/1.2.5/"
+                     "version":  "1.2.8",
+                     "url":  "https://thunderstore.io/package/download/seneaL/SeneaL_UI/1.2.8/"
                  },
                  {
                      "fullName":  "SimplifyDave-BetterNetworking_Valheim",
@@ -118,6 +118,11 @@
                       "target":  "BepInEx/config/seneaL.valheim.ui.cfg",
                       "source":  "game-files/common/BepInEx/config/seneaL.valheim.ui.cfg",
                       "sha256":  "15B6ED392B0F1AC3BF047571AE153D6290293D092AF563D70F8A4E23FFBF121E"
+                  },
+                  {
+                      "target":  "BepInEx/config/seneaL.valheim.ui.server.cfg",
+                      "source":  "game-files/common/BepInEx/config/seneaL.valheim.ui.server.cfg",
+                      "sha256":  "A2A5DFF43CC1F6B05F9D9AA26FD763EDAA8A8444D32849B2DCE21D9EE64BCA82"
                   },
                   {
                       "target":  "BepInEx/config/server_devcommands.cfg",
