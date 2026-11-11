@@ -85,6 +85,11 @@
                       "sha256":  "5FAC2B4D12DD4FAFE328ED08F897724AD1125C525C44724D6100214DE28E0B07"
                   },
                   {
+                      "target":  "BepInEx/config/dev.gurebu.worldhalla.cfg",
+                      "source":  "game-files/common/BepInEx/config/dev.gurebu.worldhalla.cfg",
+                      "sha256":  "3D9A9D4206D3CD765198B1B697B3EE5A6878787C88A55A6174289BDD1554D1B7"
+                  },
+                  {
                       "target":  "BepInEx/config/DIT.BetterNetworking10.cfg",
                       "source":  "game-files/common/BepInEx/config/DIT.BetterNetworking10.cfg",
                       "sha256":  "8CB8CCFEAC1028FA9B79DB1CA7CE11C1C3BD818C36D9411AC56C9E670A68A9A0"
